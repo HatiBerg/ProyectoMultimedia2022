@@ -80,7 +80,6 @@ Proyecto engloba contenido de varios ramos:
         - Deben haber avances semanales reflajados en GiHub
 
 
-
 Prueba 3: Proyecto
     - 1 nota equivalente al 25%
         - 60% Avances del proyecto

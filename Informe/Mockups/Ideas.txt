@@ -1,0 +1,2 @@
+Tema del proyecto a realizar:
+- Noticias de videojuegos (Considerar tambien incluir tecnología relacionada a videojuegos para rellenar si hace falta).
