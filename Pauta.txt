@@ -1,0 +1,88 @@
+Proyecto engloba contenido de varios ramos
+- Trabajo colaborativo en github
+- Informe de la web
+    - Caracteristicas del proyecto
+    - De que trata
+    - Que modelo de desarrollo que estan usando (modelo incremental si es que es en grupo) Debe ser usado y justificado
+    - Mockups (Con las páginas a desarrollar)
+        - Puede ser dibujado pero bien explicado
+        - Con programa como AdobeXD, Figma, Balsamiq u otro
+    - Tecnologías a usar y librerías
+    - Modelo de datos
+        - Modelo E-R
+        - Diagrama relacional
+    - Carta gantt
+    - Otra información relevante
+        - No incluir código para rellenar
+- Proyecto
+    - Ejemplos
+        - control de ingreso de algo
+        - repositorio de antecedentes
+    Funcionalidades:
+        - Sección de administración
+            - Con distintas secciones
+            - Crop imagenes donde se requiera trabajar imagenes
+            - Administrador de slider
+                - Agregar nueva imagen
+                - Eliminar imagen
+            - Creación de usuarios
+                - Crear con roles
+                    - Administrador (puede cambiar todo)
+                    - Poder crear noticias
+                    - Poder modificar el slider
+                    - Usuario registrado con rol base (Solo ver datos)
+                - Información del usuario como
+                    - Nombre
+                    - Apellido
+                    - Correo electrónico
+                    - Nombre de usuario (opcional)
+                    - Foto perfil
+                    - Contraseña (segura)
+                    - Rut (Validar)
+            - Gráficos de estadísticas
+                - Cantidad de veces vista noticias
+        - Página principal
+            - Slider
+            - Noticias
+            - Noticias más vistas / ultimas noticias
+        - Control de acceso (Login)
+            - Recuperar contraseña
+        - Registro de usuarios
+        - Log de archivos y en la base de datos
+            - Guardar quien está realizando la acción
+            - Que acción hizo
+            - La fecha y hora
+            - La IP del usuario
+        - Perfil de usuario
+        - Sitio responsive
+        - Noticias (Puede variar)
+            - Variaciones
+                - Control de acceso
+                - Repositorio de antecedentes
+            - Crear
+            - Modificar
+            - Eliminar
+            - Página para la noticia
+            - Exportar e Importar noticias a un csv desde la administración
+            - Cantidad de veces vista
+            - Exportar en PDF
+            - QR que al escanear me lleve a la noticia
+    - Al entregar:
+        - Base de datos .sql
+        - Explicaciones del código
+    - Comentario adicional:
+        - Definir si el codigo lo escribirán orientado a ojetos o por procedimientos o si usaran una mezcla(ideal no)
+        - Mostrar como NO debe ser una BD
+        - Crear un repositorio para el proyecto
+        - Deben haber avances semanales reflajados en GiHub
+
+
+
+Prueba 3: Proyecto
+    - 1 nota equivalente al 25%
+        - 60% Avances del proyecto
+        - 40% Avances del informe
+    - 1 nota equivalente al 75%
+        - 60% Proyecto Final
+        - 40% Informe Final
+    - Habrá clases para que puedan avanzar y resolver dudas
