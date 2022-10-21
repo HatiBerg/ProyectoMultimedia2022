@@ -1,5 +1,7 @@
-Proyecto engloba contenido de varios ramos
+Proyecto engloba contenido de varios ramos:
+
 - Trabajo colaborativo en github
+
 - Informe de la web
     - Caracteristicas del proyecto
     - De que trata
@@ -14,6 +16,7 @@ Proyecto engloba contenido de varios ramos
     - Carta gantt
     - Otra información relevante
         - No incluir código para rellenar
+
 - Proyecto
     - Ejemplos
         - control de ingreso de algo
