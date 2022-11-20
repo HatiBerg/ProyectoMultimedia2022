@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lib/personal/style.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
 </head>
 
 <body>
-    <div id="wrapper" class="container-fluid col-11">
+    <div id="wrapper">
 
         <div id="header" class="container-fluid bg-info text-center">
             <div class="container-fluid fs-1">Banner</div>
         </div>
 
-        <div id="menu" class="container-fluid bg-primary fs-4">
+        <div id="menu" class="container-fluid bg-primary fs-5">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container-fluid text-light">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,12 +99,18 @@
 
         </div>
 
-        <div id="footer" class="d-flex justify-content-center text-center bg-secondary">
-            <div class="d-flex">fotter</div>
+        <div id="footer" class="d-outline-flex text-center bg-secondary text-light">
+            <div class="d-grid gap-2">
+                <button id="btn-back-to-top" class="btn btn-secondary fs-5" type="button">Inicio de Página</button>
+            </div>
+            <div class="container-fluid col-10 justify-content-center ">
+                <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>
+            </div>
         </div>
 
     </div>
     <script src="lib/bootstrap/bootstrap.js"></script>
+    <script src="lib/personal/javascript.js"></script>
 </body>
 
 </html>
