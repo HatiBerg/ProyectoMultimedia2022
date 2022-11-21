@@ -29,13 +29,13 @@
                                 <a class="nav-link active" aria-current="page" href="index1.php">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Catálogo</a>
+                                <a class="nav-link" href="catalogo.php">Catálogo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Iniciar sesion</a>
+                                <a class="nav-link" href="iniciar_sesion.php">Iniciar sesion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Registrarse</a>
+                                <a class="nav-link" href="registrarse.php">Registrarse</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
