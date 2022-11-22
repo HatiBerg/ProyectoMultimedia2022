@@ -48,6 +48,29 @@
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
+            <div class="form-signin w-100 m-auto">
+                <form action="login.php" method="POST" class="col-3 mx-auto">
+                    <h1 class="h3 mb-3 fw-normal">CREA TU CUENTA</h1>
+
+                    <div class="form-floating mt-2">
+                        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">Correo Electrónico</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Contraseña</label>
+                    </div>
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Recordarme
+                        </label>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Registrarse</button>
+                    <p class="mt-5 mb-3 text-muted">&copy;2022</p>
+                </form>
+            </div>
         </div>
 
         <div id="footer" class="d-outline-flex text-center bg-secondary text-light">
