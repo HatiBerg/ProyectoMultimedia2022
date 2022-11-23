@@ -14,7 +14,7 @@
     <div id="wrapper">
 
         <div id="header" class="container-fluid bg-info text-center">
-            <div class="container-fluid fs-1">Banner</div>
+            <div class="container-fluid fs-1">GameCenter</div>
         </div>
 
         <div id="menu" class="container-fluid bg-primary fs-5">
@@ -36,6 +36,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="registrarse.php">Registrarse</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
@@ -99,9 +102,9 @@
 
         </div>
 
-        <div id="footer" class="d-outline-flex text-center bg-secondary text-light">
+        <div id="footer" class="d-outline-flex text-center bg-dark text-light">
             <div class="d-grid gap-2">
-                <button id="btn-back-to-top" class="btn btn-secondary fs-5" type="button">Inicio de Página</button>
+                <button id="btn-back-to-top" class="btn btn-dark fs-5" type="button">Inicio de Página</button>
             </div>
             <div class="container-fluid col-10 justify-content-center ">
                 <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>

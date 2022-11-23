@@ -1,0 +1,4 @@
+Cosas que tengo que hacer en el sitios web:
+
+- Elegir una paleta de color para el sitio que no te deje ciego.
+- Mejorar el MER y crear el MR para crear una base de datos decente.
