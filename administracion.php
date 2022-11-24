@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="lib/adminlte/plugins/daterangepicker/daterangepicker.css" />
     <!-- summernote -->
     <link rel="stylesheet" href="lib/adminlte/plugins/summernote/summernote-bs4.min.css" />
+    <!-- DataTables -->
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
@@ -38,10 +42,10 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="administracion.php" class="nav-link">Inicio</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index.php" class="nav-link">Tienda</a>
+                    <a href="index1.php" class="nav-link">Tienda</a>
                 </li>
             </ul>
         </nav>
@@ -84,25 +88,25 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a href="index.html" class="nav-link">
+                            <a href="administracion.php" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
                         <li class="nav-item menu-open">
-                            <a href="index.html" class="nav-link">
+                            <a href="añadir_juego.php" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Añadir Juego</p>
                             </a>
                         </li>
                         <li class="nav-item menu-open">
-                            <a href="index.html" class="nav-link">
+                            <a href="editar_juego.php" class="nav-link">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Editar Juego</p>
                             </a>
                         </li>
                         <li class="nav-item menu-open">
-                            <a href="index.html" class="nav-link">
+                            <a href="eliminar_juego.php" class="nav-link">
                                 <i class="nav-icon fas fa-trash"></i>
                                 <p>Eliminar Juego</p>
                             </a>
@@ -192,7 +196,113 @@
                     <!-- /.row -->
                     <!-- Main row -->
                     <div class="row">
-                        <h1>Lista de Juegos</h1>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Juegos Registrados en la Base de Datos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_juegos" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Editor</th>
+                                                <th>Desarrollador</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>Nombre Ejemplo</td>
+                                                <td>Descripción Ejemplo</td>
+                                                <td>24-11-2022</td>
+                                                <td>Editor Ejemplo</td>
+                                                <td>Desarrollador Ejemplo</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
                     </div>
                     <!-- /.row (main row) -->
                 </div>
@@ -248,6 +358,33 @@
     <script src="lib/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="lib/adminlte/dist/js/adminlte.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="lib/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/jszip/jszip.min.js"></script>
+    <script src="lib/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="lib/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $('#tabla_juegos').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
 </body>
 
 </html>
