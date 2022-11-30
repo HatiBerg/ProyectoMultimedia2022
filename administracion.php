@@ -212,89 +212,26 @@
                                                 <th>Fecha de Creación</th>
                                                 <th>Editor</th>
                                                 <th>Desarrollador</th>
+                                                <th> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>9</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>Nombre Ejemplo</td>
-                                                <td>Descripción Ejemplo</td>
-                                                <td>24-11-2022</td>
-                                                <td>Editor Ejemplo</td>
-                                                <td>Desarrollador Ejemplo</td>
-                                            </tr>
+                                        <?php
+                                            if ($num = mysqli_num_rows($run) > 0) {
+                                                while ($result = mysqli_fetch_assoc($run)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idVJ'] . "</td>  
+                                                            <td>" . $result['nombreVJ'] . "</td>  
+                                                            <td>" . $result['descripVJ'] . "</td>  
+                                                            <td>" . $result['fechaCrea'] . "</td>  
+                                                            <td>" . $result['editorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>  
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>

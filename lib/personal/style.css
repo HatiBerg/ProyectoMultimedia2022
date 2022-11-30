@@ -1,9 +1,23 @@
-body{
+body {
     background-color: gray;
 }
-#wrapper{
+
+#wrapper {
     background-color: gray;
 }
-#main{
+
+#main {
     background-color: gray;
+}
+
+#btn_eliminar {
+    text-decoration: none;
+    color: #FFF;
+    background-color: #e74c3c;
+    padding: 5px 20px;
+    border-radius: 3px;
+}
+
+#btn_eliminar:hover {
+    background-color: #c0392b;
 }
