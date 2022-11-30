@@ -1,3 +1,9 @@
+<?php
+include 'conexion.php';
+$consulta = "select * from videojuego";
+$run = mysqli_query($conexion, $consulta);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +32,10 @@
     <link rel="stylesheet" href="lib/adminlte/plugins/daterangepicker/daterangepicker.css" />
     <!-- summernote -->
     <link rel="stylesheet" href="lib/adminlte/plugins/summernote/summernote-bs4.min.css" />
+    <!-- DataTables -->
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
@@ -125,6 +135,52 @@
                         </div>
                         <!-- /.col -->
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Juegos Registrados en la Base de Datos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_juegos" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Editor</th>
+                                                <th>Desarrollador</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            if ($num = mysqli_num_rows($run) > 0) {
+                                                while ($result = mysqli_fetch_assoc($run)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idVJ'] . "</td>  
+                                                            <td>" . $result['nombreVJ'] . "</td>  
+                                                            <td>" . $result['descripVJ'] . "</td>  
+                                                            <td>" . $result['fechaCrea'] . "</td>  
+                                                            <td>" . $result['editorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>  
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
@@ -136,7 +192,7 @@
                 <div class="container-fluid">
                     <!-- Main row -->
                     <div class="row">
-                        
+
                     </div>
                     <!-- /.row (main row) -->
                 </div>
@@ -192,6 +248,33 @@
     <script src="lib/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="lib/adminlte/dist/js/adminlte.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="lib/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/jszip/jszip.min.js"></script>
+    <script src="lib/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="lib/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $('#tabla_juegos').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
 </body>
 
 </html>

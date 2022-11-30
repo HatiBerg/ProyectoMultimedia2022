@@ -3,3 +3,6 @@ Cosas que tengo que hacer en el sitios web:
 - Elegir una paleta de color para el sitio que no te deje ciego.
 - Mejorar el MER y crear el MR para crear una base de datos decente.
 - Implementar un inicio de sesion para la administración.
+- Lista de los juegos para vista del usuario.
+- Implementar un sistema de compra de videojuegos (En adicionales)
+- Investigar sobre recomendados para ti, para su implementación en el sitio web.
