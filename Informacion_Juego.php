@@ -52,11 +52,17 @@
         <div id="JuegoSeleccionado" class="container-fluid col-15 bg-primary">Apex
             <figure class="figure">
         <img class="img-fluid rounded" src="./img/Apex.jpg">
-        <div id="InformaciónJuego" class="container-fluid col-4 bg-primary">Informacion del juego 
+        <div id="InformaciónJuego" class="container-fluid col-4 bg-primary"><h1>Acerca del juego</h1> 
+        <h4>Apex Legends es un videojuego gratuito perteneciente a los géneros battle royale y hero shooter
+             en primera persona, desarrollado por Respawn Entertainment y publicado por Electronic Arts.</h4>
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
             <figcaption class="figure-caption text-end"></figcaption>
 </figure>
-
+<div class="ratio ratio-16x9">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/innmNewjkuk" title="YouTube video player" 
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+     allowfullscreen></iframe>
+</div>
 </div>
 </div>
 </div>
