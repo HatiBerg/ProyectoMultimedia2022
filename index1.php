@@ -81,23 +81,78 @@
                 </div>
             </div>
 
-            <div id="row2" class="d-flex mb-2 fs-1">
-                <div id="ofertas1" class="container-fluid col-6 bg-primary">ofertas1</div>
-                <div id="ofertas2" class="container-fluid col-4 bg-primary">ofertas2</div>
+            <div id="row2" class="d-flex row mb-2 fs-1">
+                <div id="ofertas1" class="container-fluid col-lg-5 col-sm-11">
+                <img class="img-fluid rounded" src="./img/ofertas2.jpg">
+                </div>
+                <div id="ofertas2" class="container-fluid col-lg-5 col-sm-11">
+                <img class="img-fluid rounded" src="./img/ofertas3.jpg">
+                </div>
             </div>
 
             <div id="row3" class="d-flex mb-2 fs-1">
-                <div id="recomendados" class="container-fluid col-11 bg-danger">recomendados</div>
+                
+                <div id="recomendados" class="container-fluid col-11">Recomendados
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                <img class="img-fluid rounded" src="./img/recomendados.jpg">
+                </a>
+                </div>
+                
             </div>
 
-            <div id="row4" class="d-flex mb-2 fs-1">
-                <div id="videos1" class="container-fluid col-3 bg-primary">videos1</div>
-                <div id="videos2" class="container-fluid col-3 bg-primary">videos2</div>
-                <div id="videos3" class="container-fluid col-3 bg-primary">videos3</div>
+            <div id="row4" class="d-flex row mb-2 fs-1">
+                <div id="videos1" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" 
+                src="https://www.youtube.com/embed/o3V-GvvzjE4" title="YouTube video player" frameborder="0"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                 allowfullscreen></iframe></div>
+                <div id="videos2" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" 
+                src="https://www.youtube.com/embed/CptaXqVY6-E" title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                 allowfullscreen></iframe></div>
+                <div id="videos3" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" 
+                src="https://www.youtube.com/embed/F3jePdO9_jc" title="YouTube video player" frameborder="0"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe></div>
             </div>
 
             <div id="row5" class="d-flex fs-1">
-                <div id="categorias" class="container-fluid col-11 bg-danger">categorias</div>
+                
+                <div id="menu" class="container-fluid bg-primary fs-5">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid text-light">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index1.php">Acción</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="catalogo.php">Aventura</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="iniciar_sesion.php">Arcade</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="registrarse.php">Deportes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.php">Estrategia</a>
+                                <li class="nav-item">
+                                <a class="nav-link" href="administracion.php">Simulación</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.php">Juegos de mesa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administracion.php">Juegos musicales</a>
+                            </li>
+                            </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
 
         </div>

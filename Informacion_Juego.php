@@ -47,7 +47,7 @@
             </nav>
         </div>
         <h1>Juego seleccionado</h1>
-        <div class="container-fluid col-10 justify-content-center ">
+        <div class="container-fluid  fs-1 col-10 justify-content-center ">
         
         <div id="JuegoSeleccionado" class="container-fluid col-15 bg-primary">Apex
             <figure class="figure">
