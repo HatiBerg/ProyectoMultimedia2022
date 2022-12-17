@@ -1,13 +1,35 @@
 body {
-    background-color: gray;
+    background-color: #1B2838;
 }
 
 #wrapper {
-    background-color: gray;
+    background-color: #1B2838;
+}
+
+#header{
+    background-color: #171a21;
+    color: white;
+}
+
+#menu{
+    background-color: #17456e;
+}
+
+.navbar{
+    background-color: #17456e;
 }
 
 #main {
-    background-color: gray;
+    background-color: #1B2838;
+    color: white;
+}
+
+#footer{
+    background-color: #171a21;
+}
+
+#JuegoSeleccionado{
+    color: white;
 }
 
 #btn_eliminar {
@@ -20,4 +42,9 @@ body {
 
 #btn_eliminar:hover {
     background-color: #c0392b;
+}
+
+#btn-back-to-top{
+    background-color: #171a21;
+    color: white;
 }

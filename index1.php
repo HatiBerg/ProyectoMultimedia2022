@@ -13,12 +13,12 @@
 <body>
     <div id="wrapper">
 
-        <div id="header" class="container-fluid bg-info text-center">
+        <div id="header" class="container-fluid text-center">
             <div class="container-fluid fs-1">GameCenter</div>
         </div>
 
-        <div id="menu" class="container-fluid bg-primary fs-5">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div id="menu" class="container-fluid fs-5">
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid text-light">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -92,7 +92,7 @@
 
             <div id="row3" class="d-flex mb-2 fs-1">
                 
-                <div id="recomendados" class="container-fluid col-11">Recomendados
+                <div id="recomendados" class="container-fluid col-11">
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                 <img class="img-fluid rounded" src="./img/recomendados.jpg">
                 </a>
@@ -117,8 +117,8 @@
 
             <div id="row5" class="d-flex fs-1">
                 
-                <div id="menu" class="container-fluid bg-primary fs-5">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div id="menu" class="container-fluid fs-5">
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid text-light">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -129,24 +129,24 @@
                                 <a class="nav-link active" aria-current="page" href="index1.php">Acción</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="catalogo.php">Aventura</a>
+                                <a class="nav-link" href="">Aventura</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="iniciar_sesion.php">Arcade</a>
+                                <a class="nav-link" href="">Arcade</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="registrarse.php">Deportes</a>
+                                <a class="nav-link" href="">Deportes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="administracion.php">Estrategia</a>
+                                <a class="nav-link" href="">Estrategia</a>
                                 <li class="nav-item">
-                                <a class="nav-link" href="administracion.php">Simulación</a>
+                                <a class="nav-link" href="">Simulación</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="administracion.php">Juegos de mesa</a>
+                                <a class="nav-link" href="">Juegos de mesa</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="administracion.php">Juegos musicales</a>
+                                <a class="nav-link" href="">Juegos musicales</a>
                             </li>
                             </li>
                             </ul>
@@ -157,7 +157,7 @@
 
         </div>
 
-        <div id="footer" class="d-outline-flex text-center bg-dark text-light">
+        <div id="footer" class="d-outline-flex text-center text-light">
             <div class="d-grid gap-2">
                 <button id="btn-back-to-top" class="btn btn-dark fs-5" type="button">Inicio de Página</button>
             </div>

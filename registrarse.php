@@ -20,12 +20,12 @@ if (isset($_COOKIE["EMAIL"])) {
 <body>
     <div id="wrapper" class="">
 
-        <div id="header" class="container-fluid bg-info text-center">
+        <div id="header" class="container-fluid text-center">
             <div class="container-fluid fs-1">Banner</div>
         </div>
 
-        <div id="menu" class="container-fluid bg-primary fs-5">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div id="menu" class="container-fluid fs-5">
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid text-light">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -57,9 +57,9 @@ if (isset($_COOKIE["EMAIL"])) {
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-5">
         </div>
 
-        <div id="footer" class="d-outline-flex text-center bg-secondary text-light">
+        <div id="footer" class="d-outline-flex text-center  text-light">
             <div class="d-grid gap-2">
-                <button id="btn-back-to-top" class="btn btn-secondary fs-5" type="button">Inicio de Página</button>
+                <button id="btn-back-to-top" class="btn fs-5" type="button">Inicio de Página</button>
             </div>
             <div class="container-fluid col-10 justify-content-center ">
                 <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>
