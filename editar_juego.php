@@ -4,7 +4,13 @@ $consultaVJ = "SELECT * FROM videojuego";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
 if (isset($_REQUEST['editGame'])) {
-    if ($_REQUEST['nombreVJ'] == "" || $_REQUEST['descripVJ'] == "" || $_REQUEST['fechaCrea'] == "" || $_REQUEST['editorVJ'] == "" || $_REQUEST['desarrolladorVJ'] == "" || $_REQUEST['precio'] == "") {
+    $consultaDatosVJ = "SELECT * FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
+    $runDatosVJ = mysqli_query($conexion, $consultaDatosVJ);
+    $rowDatosVJ = mysqli_fetch_assoc($runDatosVJ);
+}
+
+if (isset($_REQUEST['editGame'])) {
+    if (($_REQUEST['nombreVJ'] == "") || ($_REQUEST['descripVJ'] == "") || ($_REQUEST['fechaCrea'] == "") || ($_REQUEST['editorVJ'] == "") || ($_REQUEST['desarrolladorVJ'] == "") || ($_REQUEST['precio'] == "")) {
         echo "Rellene todos los campos";
     } else {
         $nombreVJ = $_REQUEST['nombreVJ'];
@@ -24,7 +30,6 @@ if (isset($_REQUEST['editGame'])) {
     } else {
         echo "Juego no actualizado";
     }
-    
 }
 ?>
 
@@ -206,7 +211,7 @@ if (isset($_REQUEST['editGame'])) {
                                                             <td>" . $result['visitas'] . "</td>
                                                             <td>" . "$ " . $result['precio'] . "</td>
                                                             <td><form action='' method='POST'>
-                                                            <input type='hidden' name='idVJ' value=".$result['idVJ'].">
+                                                            <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
                                                             <input type='submit' class='btn btn-sm btn-danger' name='editGame' value='Editar'>
                                                             </form></td>
                                                         </tr>  
@@ -231,42 +236,44 @@ if (isset($_REQUEST['editGame'])) {
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
+                                    <?php
+                                    ?>
                                     <form>
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="nombreVJ">Nombre del Juego</label>
-                                                <input type="text" class="form-control" id="nombreVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
-                                                                                                                                echo $result['nombreVJ'];
+                                                <input type="text" class="form-control" id="nombreVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                echo $rowDatosVJ['nombreVJ'];
                                                                                                                             } ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="descrpVJ">Descripción del Juego</label>
-                                                <input type="text" class="form-control" id="descrpVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
-                                                                                                                                echo $result['descrpVJ'];
+                                                <input type="text" class="form-control" id="descrpVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                echo $rowDatosVJ['descrpVJ'];
                                                                                                                             } ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="fechaCrea">Fecha de Creación del Juego</label>
-                                                <input type="date" class="form-control" id="fechaCrea" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
-                                                                                                                                    echo $result['fechaCrea'];
+                                                <input type="date" class="form-control" id="fechaCrea" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                    echo $rowDatosVJ['fechaCrea'];
                                                                                                                                 } ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="editorVJ">Editor del Juego</label>
-                                                <input type="text" class="form-control" id="editorVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
-                                                                                                                                echo $result['editorVJ'];
+                                                <input type="text" class="form-control" id="editorVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                echo $rowDatosVJ['editorVJ'];
                                                                                                                             } ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="dasarrolladorVJ">Desarrollador del Juego</label>
-                                                <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
-                                                                                                                                        echo $result['dasarrolladorVJ'];
+                                                <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                        echo $rowDatosVJ['dasarrolladorVJ'];
                                                                                                                                     } ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="precio">Precio del Juego</label>
-                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000" value="<?php if (isset($result['nombreVJ'])) {
-                                                                                                                                                        echo $result['precio'];
+                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                                        echo $rowDatosVJ['precio'];
                                                                                                                                                     } ?>">
                                             </div>
                                         </div>

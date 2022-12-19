@@ -10,7 +10,7 @@ if(isset($_POST['añadirJuego'])){
         $desarrolladorVJ = $_POST['desarrolladorVJ'];
         $precio = $_POST['precio'];
 
-    $sql = "INSERT INTO `videojuego`(`nombreVJ`,`descripVJ`, `fechaCrea`, `editorVJ`', `desarrolladorVJ`, `precio`) 
+    $sql = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, precio) 
             VALUES ('$nombreVJ', $descripVJ, '$fechaCrea','$editorVJ', $desarrolladorVJ, '$precio')";
  
     if(mysqli_query($conexion, $consulta) === TRUE){
