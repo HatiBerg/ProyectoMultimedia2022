@@ -1,17 +1,16 @@
 <?php
+if (!isset($_GET['idVJ'])) {
+    die('id not provided');
+}
 include 'conexion.php';
 
-$consultaVJ = "SELECT * FROM videojuego";
-$runVJ = mysqli_query($conexion, $consultaVJ);
-
-if (isset($_REQUEST['delete'])) {
-    $deleteVJ = "DELETE FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
-    if(mysqli_query($conexion, $deleteVJ)){
-        header('Location:eliminar_juego.php');
-    }else{
-        echo "Error: ".mysqli_error($conexion);
-    }
+$idVJ =  $_GET['idVJ'];
+$consulta = "SELECT * FROM videojuego WHERE idVJ = $idVJ";
+$runConsulta = mysqli_query($conexion, $consulta);
+if (mysqli_num_rows($runConsulta) != 1) {
+    die('La id no esta en la base de datos');
 }
+$data = mysqli_fetch_assoc($runConsulta);
 ?>
 
 <!DOCTYPE html>
@@ -141,62 +140,7 @@ if (isset($_REQUEST['delete'])) {
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Eliminar Juego</h1>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Juegos Registrados en la Base de Datos</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body ">
-                                    <table id="tabla_juegos" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nombre</th>
-                                                <th>Descripcion</th>
-                                                <th>Fecha de Creación</th>
-                                                <th>Editor</th>
-                                                <th>Desarrollador</th>
-                                                <th>Visitas</th>
-                                                <th>Precio</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-
-                                            if ($num = mysqli_num_rows($runVJ) > 0) {
-                                                while ($result = mysqli_fetch_assoc($runVJ)) {
-                                                    echo" 
-                                                        <tr class='data'>  
-                                                            <td>" . $result['idVJ'] . "</td>
-                                                            <td>" . $result['nombreVJ'] . "</td>
-                                                            <td>" . $result['descripVJ'] . "</td>  
-                                                            <td>" . $result['fechaCrea'] . "</td>  
-                                                            <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . $result['visitas'] . "</td>
-                                                            <td>" . "$ " . $result['precio'] . "</td>
-                                                            <td><form action='' method='POST'>
-                                                            <input type='hidden' name='idVJ' value=".$result['idVJ'].">
-                                                            <input type='submit' class='btn btn-sm btn-danger' name='delete' value='Eliminar'>
-                                                            </form></td>
-                                                        </tr>
-                                                    ";
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
+                            <h1 class="m-0">Editar Juego</h1>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -211,11 +155,51 @@ if (isset($_REQUEST['delete'])) {
                 <div class="container-fluid">
                     <!-- Main row -->
                     <div class="row">
-
-                    </div>
-                    <!-- /.row (main row) -->
-                </div>
-                <!-- /.container-fluid -->
+                        <div class="col-10 mx-auto">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Ingrese la Información del Juego</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="nombreVJ">Nombre del Juego</label>
+                                                <input type="text" class="form-control" id="nombreVJ" placeholder="" value="<?php $data['nombreVJ'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descrpVJ">Descripción del Juego</label>
+                                                <input type="text" class="form-control" id="descrpVJ" placeholder="" value="<?php $data['descripVJ'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fechaCrea">Fecha de Creación del Juego</label>
+                                                <input type="date" class="form-control" id="fechaCrea" placeholder="" value="<?php $data['fechaCrea'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editorVJ">Editor del Juego</label>
+                                                <input type="text" class="form-control" id="editorVJ" placeholder="" value="<?php $data['editorVJ'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dasarrolladorVJ">Desarrollador del Juego</label>
+                                                <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="" value="<?php $data['desarrolladorVJ'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="precio">Precio del Juego</label>
+                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000" value="<?php $data['precio'] ?>">
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <button type="submit" name="editGame" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                    </div">
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
+                        </div>
+                        <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>

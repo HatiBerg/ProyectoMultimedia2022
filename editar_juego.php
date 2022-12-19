@@ -1,7 +1,31 @@
 <?php
 include 'conexion.php';
-$consulta = "select * from videojuego";
-$run = mysqli_query($conexion, $consulta);
+$consultaVJ = "SELECT * FROM videojuego";
+$runVJ = mysqli_query($conexion, $consultaVJ);
+
+if (isset($_REQUEST['editGame'])) {
+    if ($_REQUEST['nombreVJ'] == "" || $_REQUEST['descripVJ'] == "" || $_REQUEST['fechaCrea'] == "" || $_REQUEST['editorVJ'] == "" || $_REQUEST['desarrolladorVJ'] == "" || $_REQUEST['precio'] == "") {
+        echo "Rellene todos los campos";
+    } else {
+        $nombreVJ = $_REQUEST['nombreVJ'];
+        $descripVJ = $_REQUEST['descripVJ'];
+        $fechaCrea = $_REQUEST['fechaCrea'];
+        $editorVJ = $_REQUEST['editorVJ'];
+        $desarrolladorVJ = $_REQUEST['desarrolladorVJ'];
+        $precio = $_REQUEST['precio'];
+
+        $actualizar = "UPDATE videojuego
+                       SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', 
+                           desarrolladorVJ= '$desarrolladorVJ',  precio= '$precio'
+                       WHERE idVJ = {$_REQUEST['idVJ']}";
+    }
+    if (mysqli_query($conexion, $actualizar)) {
+        echo "Juego actualizado";
+    } else {
+        echo "Juego no actualizado";
+    }
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -135,6 +159,16 @@ $run = mysqli_query($conexion, $consulta);
                         </div>
                         <!-- /.col -->
                     </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -152,13 +186,15 @@ $run = mysqli_query($conexion, $consulta);
                                                 <th>Fecha de Creación</th>
                                                 <th>Editor</th>
                                                 <th>Desarrollador</th>
+                                                <th>Visitas</th>
+                                                <th>Precio</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            if ($num = mysqli_num_rows($run) > 0) {
-                                                while ($result = mysqli_fetch_assoc($run)) {
+                                            if ($num = mysqli_num_rows($runVJ) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runVJ)) {
                                                     echo "  
                                                         <tr class='data'>  
                                                             <td>" . $result['idVJ'] . "</td>  
@@ -166,7 +202,13 @@ $run = mysqli_query($conexion, $consulta);
                                                             <td>" . $result['descripVJ'] . "</td>  
                                                             <td>" . $result['fechaCrea'] . "</td>  
                                                             <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>
+                                                            <td>" . $result['visitas'] . "</td>
+                                                            <td>" . "$ " . $result['precio'] . "</td>
+                                                            <td><form action='' method='POST'>
+                                                            <input type='hidden' name='idVJ' value=".$result['idVJ'].">
+                                                            <input type='submit' class='btn btn-sm btn-danger' name='editGame' value='Editar'>
+                                                            </form></td>
                                                         </tr>  
                                                     ";
                                                 }
@@ -181,22 +223,66 @@ $run = mysqli_query($conexion, $consulta);
                         </div>
                         <!-- /.col -->
                     </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Main row -->
                     <div class="row">
-
+                        <div class="col-6 mx-auto">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Ingrese la Información del Juego</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="nombreVJ">Nombre del Juego</label>
+                                                <input type="text" class="form-control" id="nombreVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
+                                                                                                                                echo $result['nombreVJ'];
+                                                                                                                            } ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descrpVJ">Descripción del Juego</label>
+                                                <input type="text" class="form-control" id="descrpVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
+                                                                                                                                echo $result['descrpVJ'];
+                                                                                                                            } ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fechaCrea">Fecha de Creación del Juego</label>
+                                                <input type="date" class="form-control" id="fechaCrea" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
+                                                                                                                                    echo $result['fechaCrea'];
+                                                                                                                                } ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editorVJ">Editor del Juego</label>
+                                                <input type="text" class="form-control" id="editorVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
+                                                                                                                                echo $result['editorVJ'];
+                                                                                                                            } ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dasarrolladorVJ">Desarrollador del Juego</label>
+                                                <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="" value="<?php if (isset($result['nombreVJ'])) {
+                                                                                                                                        echo $result['dasarrolladorVJ'];
+                                                                                                                                    } ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="precio">Precio del Juego</label>
+                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000" value="<?php if (isset($result['nombreVJ'])) {
+                                                                                                                                                        echo $result['precio'];
+                                                                                                                                                    } ?>">
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <button type="submit" name="editGame" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                    </div">
+                                </div>
+                                <!-- /.row (main row) -->
+                            </div>
+                        </div>
+                        <!-- /.row (main row) -->
                     </div>
-                    <!-- /.row (main row) -->
-                </div>
-                <!-- /.container-fluid -->
+                    <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>

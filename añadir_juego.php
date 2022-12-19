@@ -146,29 +146,33 @@
                                     <form>
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Nombre del Juego</label>
+                                                <label for="nombreVJ">Nombre del Juego</label>
                                                 <input type="text" class="form-control" id="nombreVJ" placeholder="">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Descripción del Juego</label>
+                                                <label for="descrpVJ">Descripción del Juego</label>
                                                 <input type="text" class="form-control" id="descrpVJ" placeholder="">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Fecha de Creación del Juego</label>
+                                                <label for="fechaCrea">Fecha de Creación del Juego</label>
                                                 <input type="date" class="form-control" id="fechaCrea" placeholder="">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Editor del Juego</label>
+                                                <label for="editorVJ">Editor del Juego</label>
                                                 <input type="text" class="form-control" id="editorVJ" placeholder="">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Desarrollador del Juego</label>
+                                                <label for="dasarrolladorVJ">Desarrollador del Juego</label>
                                                 <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="precio">Precio del Juego</label>
+                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000">
                                             </div>
                                         </div>
                                         <!-- /.card-body -->
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" name="añadirJuego" value="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                     </div">

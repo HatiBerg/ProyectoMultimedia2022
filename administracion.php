@@ -1,3 +1,20 @@
+<?php
+include 'conexion.php';
+$consultaVJ = "SELECT * FROM videojuego";
+$runVJ = mysqli_query($conexion, $consultaVJ);
+
+$consultaJ = "SELECT * FROM usuario";
+$runJ = mysqli_query($conexion, $consultaJ);
+
+$consultaB = "SELECT * FROM boleta";
+$runB = mysqli_query($conexion, $consultaB);
+
+$consultaVisitasVJ = "SELECT SUM(visitas) AS cantVistas FROM videojuego";
+$runVisitasVJ = mysqli_query($conexion, $consultaVisitasVJ);
+$rowVisitasVJ = mysqli_fetch_assoc($runVisitasVJ); 
+$sumVisitasVJ = $rowVisitasVJ['cantVistas'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,7 +161,13 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>?</h3>
+                                    <?php
+                                    if ($cantVJRegis = mysqli_num_rows($runVJ)) {
+                                        echo "<h3>" . $cantVJRegis . "</h3>";
+                                    } else {
+                                        echo "<h3> 0 </h3>";
+                                    }
+                                    ?>
                                     <p>Juegos Registrados</p>
                                 </div>
                                 <div class="icon">
@@ -157,7 +180,13 @@
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>?</h3>
+                                <?php
+                                    if ($cantBRegis = mysqli_num_rows($runB)) {
+                                        echo "<h3>" . $cantBRegis . "</h3>";
+                                    } else {
+                                        echo "<h3> 0 </h3>";
+                                    }
+                                    ?>
                                     <p>Ventas Totales</p>
                                 </div>
                                 <div class="icon">
@@ -170,7 +199,13 @@
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>?</h3>
+                                    <?php
+                                    if ($cantJRegis = mysqli_num_rows($runJ)) {
+                                        echo "<h3>" . $cantJRegis . "</h3>";
+                                    } else {
+                                        echo "<h3> 0 </h3>";
+                                    }
+                                    ?>
                                     <p>Usuarios Registrados</p>
                                 </div>
                                 <div class="icon">
@@ -183,7 +218,13 @@
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>?</h3>
+                                <?php
+                                    if ($cantVJRegis = mysqli_num_rows($runVJ)) {
+                                        echo "<h3>" . $sumVisitasVJ . "</h3>";
+                                    } else {
+                                        echo "<h3> 0 </h3>";
+                                    }
+                                    ?>
                                     <p>Total de Juegos Visitados</p>
                                 </div>
                                 <div class="icon">
@@ -212,13 +253,15 @@
                                                 <th>Fecha de Creación</th>
                                                 <th>Editor</th>
                                                 <th>Desarrollador</th>
-                                                <th> </th>
+                                                <th>Visitas</th>
+                                                <th>Precio</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php
-                                            if ($num = mysqli_num_rows($run) > 0) {
-                                                while ($result = mysqli_fetch_assoc($run)) {
+                                            <?php
+                                            
+                                            if ($num = mysqli_num_rows($runVJ) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runVJ)) {
                                                     echo "  
                                                         <tr class='data'>  
                                                             <td>" . $result['idVJ'] . "</td>  
@@ -226,7 +269,9 @@
                                                             <td>" . $result['descripVJ'] . "</td>  
                                                             <td>" . $result['fechaCrea'] . "</td>  
                                                             <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>
+                                                            <td>" . $result['visitas'] . "</td>
+                                                            <td>" . "$ " . $result['precio'] . "</td>
                                                         </tr>  
                                                     ";
                                                 }
