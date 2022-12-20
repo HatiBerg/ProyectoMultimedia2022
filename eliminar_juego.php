@@ -6,10 +6,10 @@ $runVJ = mysqli_query($conexion, $consultaVJ);
 
 if (isset($_REQUEST['delete'])) {
     $deleteVJ = "DELETE FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
-    if(mysqli_query($conexion, $deleteVJ)){
+    if (mysqli_query($conexion, $deleteVJ)) {
         header('Location:eliminar_juego.php');
-    }else{
-        echo "Error: ".mysqli_error($conexion);
+    } else {
+        echo "Error: " . mysqli_error($conexion);
     }
 }
 ?>
@@ -101,31 +101,128 @@ if (isset($_REQUEST['delete'])) {
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+                        <li class="nav-item">
                             <a href="administracion.php" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-home"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
                         <li class="nav-item menu-open">
-                            <a href="añadir_juego.php" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>Añadir Juego</p>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-gamepad"></i>
+                                <p>
+                                    Videojuegos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="añadir_juego.php" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir Juego</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="editar_juego.php" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar Juego</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="eliminar_juego.php" class="nav-link active">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar Juego</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="editar_juego.php" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>Editar Juego</p>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Usuarios
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir usuarios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar usuarios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar usuarios</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="eliminar_juego.php" class="nav-link">
-                                <i class="nav-icon fas fa-trash"></i>
-                                <p>Eliminar Juego</p>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Noticias
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir noticia</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar noticia</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar noticia</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-image"></i>
+                                <p>
+                                    Slider
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir imagen</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar imagen</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar imagen</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -172,7 +269,7 @@ if (isset($_REQUEST['delete'])) {
 
                                             if ($num = mysqli_num_rows($runVJ) > 0) {
                                                 while ($result = mysqli_fetch_assoc($runVJ)) {
-                                                    echo" 
+                                                    echo " 
                                                         <tr class='data'>  
                                                             <td>" . $result['idVJ'] . "</td>
                                                             <td>" . $result['nombreVJ'] . "</td>
@@ -183,7 +280,7 @@ if (isset($_REQUEST['delete'])) {
                                                             <td>" . $result['visitas'] . "</td>
                                                             <td>" . "$ " . $result['precio'] . "</td>
                                                             <td><form action='' method='POST'>
-                                                            <input type='hidden' name='idVJ' value=".$result['idVJ'].">
+                                                            <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
                                                             <input type='submit' class='btn btn-sm btn-danger' name='delete' value='Eliminar'>
                                                             </form></td>
                                                         </tr>

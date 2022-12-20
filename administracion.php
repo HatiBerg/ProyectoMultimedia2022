@@ -102,31 +102,128 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a href="administracion.php" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <a href="administracion.php" class="nav-link menu-open active">
+                                <i class="nav-icon fas fa-home"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="añadir_juego.php" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>Añadir Juego</p>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-gamepad"></i>
+                                <p>
+                                    Videojuegos
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="añadir_juego.php" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir Juego</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="editar_juego.php" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar Juego</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="eliminar_juego.php" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar Juego</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="editar_juego.php" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>Editar Juego</p>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Usuarios
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir usuarios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar usuarios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar usuarios</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="eliminar_juego.php" class="nav-link">
-                                <i class="nav-icon fas fa-trash"></i>
-                                <p>Eliminar Juego</p>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Noticias
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir noticia</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar noticia</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar noticia</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-image"></i>
+                                <p>
+                                    Slider
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Añadir imagen</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>Editar imagen</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="nav-icon fas fa-trash"></i>
+                                        <p>Eliminar imagen</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -180,7 +277,7 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                <?php
+                                    <?php
                                     if ($cantBRegis = mysqli_num_rows($runB)) {
                                         echo "<h3>" . $cantBRegis . "</h3>";
                                     } else {
@@ -218,7 +315,7 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                <?php
+                                    <?php
                                     if ($cantVJRegis = mysqli_num_rows($runVJ)) {
                                         echo "<h3>" . $sumVisitasVJ . "</h3>";
                                     } else {
@@ -259,7 +356,7 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                                         </thead>
                                         <tbody>
                                             <?php
-                                            
+
                                             if ($num = mysqli_num_rows($runVJ) > 0) {
                                                 while ($result = mysqli_fetch_assoc($runVJ)) {
                                                     echo "  
@@ -362,9 +459,10 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                 "searching": true,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
-            });
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabla_juegos_wrapper .col-md-6:eq(0)');
         });
     </script>
 </body>
