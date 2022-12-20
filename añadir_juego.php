@@ -131,19 +131,19 @@ include 'conexion.php';
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="añadir_usuario.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir usuarios</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="editar_usuario.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar usuarios</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="eliminar_usuario.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar usuarios</p>
                                     </a>
@@ -160,19 +160,19 @@ include 'conexion.php';
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="añadir_noticia.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir noticia</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="editar_noticia.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar noticia</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="eliminar_noticia.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar noticia</p>
                                     </a>
@@ -252,7 +252,7 @@ include 'conexion.php';
                                                 <div class="invalid-feedback">Por favor ingrese un nombre para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="descrpVJ" class="form-label">Descripción del Juego</label>
+                                                <label for="descripVJ" class="form-label">Descripción del Juego</label>
                                                 <textarea class="form-control" id="descripVJ" name="descripVJ" placeholder="" rows="5" required></textarea>
                                                 <div class="invalid-feedback">Por favor ingrese una descripción para el juego</div>
                                             </div>
@@ -267,8 +267,8 @@ include 'conexion.php';
                                                 <div class="invalid-feedback">Por favor ingrese un editor para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="dasarrolladorVJ" class="form-label">Desarrollador del Juego</label>
-                                                <input type="text" class="form-control" id="dasarrolladorVJ" name="dasarrolladorVJ" placeholder="" required>
+                                                <label for="desarrolladorVJ" class="form-label">Desarrollador del Juego</label>
+                                                <input type="text" class="form-control" id="desarrolladorVJ" name="desarrolladorVJ" placeholder="" required>
                                                 <div class="invalid-feedback">Por favor ingrese un desarrollador para el juego</div>
                                             </div>
                                             <div class="form-group">
@@ -294,7 +294,7 @@ include 'conexion.php';
                                         $descripVJ = $_POST['descripVJ'];
                                         $fechaCrea = $_POST['fechaCrea'];
                                         $editorVJ = $_POST['editorVJ'];
-                                        $desarrolladorVJ = $_POST['dasarrolladorVJ'];
+                                        $desarrolladorVJ = $_POST['desarrolladorVJ'];
                                         $precio = $_POST['precio'];
                                         $url_foto = $_FILES['url_foto'];
                                         $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
@@ -334,11 +334,14 @@ include 'conexion.php';
                                             move_uploaded_file($url_foto["tmp_name"], $target_file);
 
                                             $añadir = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, visitas, precio, url_foto) 
-                                                       VALUES ('$nombreVJ', $descripVJ, '$fechaCrea','$editorVJ', $desarrolladorVJ, 0, '$precio', '$target_file')";
+                                                       VALUES ('$nombreVJ', '$descripVJ', '$fechaCrea','$editorVJ', '$desarrolladorVJ', 0, $precio, '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
-                                                echo "El videojuego se a subido con exito";
-                                                echo "<br>";
+                                                $Log = "INSERT INTO log(descripLog, fechaLog) VALUES ('Se ha añadido un videojuego a la base de datos', now())";
+                                                if (mysqli_query($conexion, $Log)) {
+                                                    echo "El videojuego se a subido con exito";
+                                                    echo "<br>";
+                                                }
                                             } else {
                                                 echo "Error al subir el videojuego, por favor intente de nuevo";
                                                 echo "<br>";

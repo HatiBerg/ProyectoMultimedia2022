@@ -206,19 +206,19 @@ if (isset($_REQUEST['subirCambios'])) {
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="añadir_usuario.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir usuarios</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="editar_usuario.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar usuarios</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="eliminar_usuario.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar usuarios</p>
                                     </a>
@@ -235,19 +235,19 @@ if (isset($_REQUEST['subirCambios'])) {
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="añadir_noticia.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir noticia</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="editar_noticia.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar noticia</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="eliminar_noticia.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar noticia</p>
                                     </a>
