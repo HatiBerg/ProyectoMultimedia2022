@@ -1,3 +1,7 @@
+<?php
+include 'conexion.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -142,45 +146,119 @@
                                     <h3 class="card-title">Ingrese la Información del Juego</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
-                                    <form>
+                                <div class="card-body border-end border-5">
+                                    <form class="mx-5 mt-4 needs-validation" novalidate action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="nombreVJ">Nombre del Juego</label>
-                                                <input type="text" class="form-control" id="nombreVJ" placeholder="">
+                                                <label for="nombreVJ" class="form-label">Nombre del Juego</label>
+                                                <input type="text" class="form-control" id="nombreVJ" name="nombreVJ" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese un nombre para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="descrpVJ">Descripción del Juego</label>
-                                                <input type="text" class="form-control" id="descrpVJ" placeholder="">
+                                                <label for="descrpVJ" class="form-label">Descripción del Juego</label>
+                                                <textarea class="form-control" id="descripVJ" name="descripVJ" placeholder="" rows="5" required></textarea>
+                                                <div class="invalid-feedback">Por favor ingrese una descripción para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="fechaCrea">Fecha de Creación del Juego</label>
-                                                <input type="date" class="form-control" id="fechaCrea" placeholder="">
+                                                <label for="fechaCrea" class="form-label">Fecha de Creación del Juego</label>
+                                                <input type="date" class="form-control" id="fechaCrea" name="fechaCrea" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese una fecha para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="editorVJ">Editor del Juego</label>
-                                                <input type="text" class="form-control" id="editorVJ" placeholder="">
+                                                <label for="editorVJ" class="form-label">Editor del Juego</label>
+                                                <input type="text" class="form-control" id="editorVJ" name="editorVJ" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese un editor para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="dasarrolladorVJ">Desarrollador del Juego</label>
-                                                <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="">
+                                                <label for="dasarrolladorVJ" class="form-label">Desarrollador del Juego</label>
+                                                <input type="text" class="form-control" id="dasarrolladorVJ" name="dasarrolladorVJ" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese un desarrollador para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="precio">Precio del Juego</label>
-                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000">
+                                                <label for="precio" class="form-label">Precio del Juego</label>
+                                                <input type="number" class="form-control" id="precio" name="precio" placeholder="" min="0" max="120000" required>
+                                                <div class="invalid-feedback">Por favor ingrese un precio para el juego</div>
+                                            </div>
+                                            <div class="form-group" class="form-label">
+                                                <label for="url_foto">Foto del juego</label>
+                                                <input type="file" class="form-control-file" id="url_foto" name="url_foto" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese una imagen para el juego</div>
                                             </div>
                                         </div>
-                                        <!-- /.card-body -->
                                         <div class="card-footer">
-                                            <button type="submit" name="añadirJuego" value="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" name="añadirJuego" class="btn btn-primary btn-lg">Subir videojuego</button>
                                         </div>
                                     </form>
-                                    </div">
                                 </div>
-                                <!-- /.row (main row) -->
+                                <div class="text-center mb-3 fs-3 text-success">
+                                    <?php
+                                    if (isset($_POST['añadirJuego'])) {
+                                        $nombreVJ = $_POST['nombreVJ'];
+                                        $descripVJ = $_POST['descripVJ'];
+                                        $fechaCrea = $_POST['fechaCrea'];
+                                        $editorVJ = $_POST['editorVJ'];
+                                        $desarrolladorVJ = $_POST['dasarrolladorVJ'];
+                                        $precio = $_POST['precio'];
+                                        $url_foto = $_FILES['url_foto'];
+                                        $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
+
+                                        $cantMaxVJ = "SELECT MAX(idVJ)+1 AS cantMaxVJ FROM videojuego";
+                                        $resultCantMaxVJ = mysqli_query($conexion, $cantMaxVJ);
+                                        $rowCantMaxVJ = mysqli_fetch_array($resultCantMaxVJ);
+
+                                        $name_file = "img_game_" . $rowCantMaxVJ['cantMaxVJ'];
+                                        $target_dir = "img/game/";
+                                        $target_file = $target_dir . $name_file . '.jpg';
+                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                        $check = getimagesize($url_foto["tmp_name"]);
+
+                                        //Verifica que sea una imagen
+                                        if ($check == false) {
+                                            $estado = 0;
+                                            echo "El archivo no es una imagen";
+                                            echo "<br>";
+                                        }
+                                        //Verificar que solo sean archivos .jpg .png .jpng
+                                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                                            $estado = 0;
+                                            echo "El imagen no es de un formato valido, solo se adminten los formatos .jpg / .png / .jpng";
+                                            echo "<br>";
+                                        }
+
+                                        //Verifica el tamaño máximo de la imagen sea 1MB (1mb = 1048576 bytes)
+                                        if ($url_foto["size"] > 1048576) {
+                                            $estado = 0;
+                                            echo "La imagen demasiado grande, por favor use otra imagen";
+                                            echo "<br>";
+                                        }
+
+                                        //Estado de subida del archivo
+                                        if ($estado == 1) {
+                                            move_uploaded_file($url_foto["tmp_name"], $target_file);
+
+                                            $añadir = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, visitas, precio, url_foto) 
+                                                       VALUES ('$nombreVJ', $descripVJ, '$fechaCrea','$editorVJ', $desarrolladorVJ, 0, '$precio', '$target_file')";
+
+                                            if (mysqli_query($conexion, $añadir)) {
+                                                echo "El videojuego se a subido con exito";
+                                                echo "<br>";
+                                            } else {
+                                                echo "Error al subir el videojuego, por favor intente de nuevo";
+                                                echo "<br>";
+                                            }
+                                        } else {
+                                            echo "Error al subir el videojuego, por favor intente de nuevo";
+                                            echo "<br>";
+                                        }
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                        <!-- /.container-fluid -->
+                        <!-- /.row (main row) -->
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
@@ -232,6 +310,26 @@
     <script src="lib/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="lib/adminlte/dist/js/adminlte.js"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </body>
 
 </html>

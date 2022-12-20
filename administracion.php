@@ -11,7 +11,7 @@ $runB = mysqli_query($conexion, $consultaB);
 
 $consultaVisitasVJ = "SELECT SUM(visitas) AS cantVistas FROM videojuego";
 $runVisitasVJ = mysqli_query($conexion, $consultaVisitasVJ);
-$rowVisitasVJ = mysqli_fetch_assoc($runVisitasVJ); 
+$rowVisitasVJ = mysqli_fetch_assoc($runVisitasVJ);
 $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
 ?>
 

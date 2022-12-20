@@ -9,21 +9,68 @@ if (isset($_REQUEST['editGame'])) {
     $rowDatosVJ = mysqli_fetch_assoc($runDatosVJ);
 }
 
-if (isset($_REQUEST['editGame'])) {
+if (isset($_REQUEST['subirCambios'])) {
     if (($_REQUEST['nombreVJ'] == "") || ($_REQUEST['descripVJ'] == "") || ($_REQUEST['fechaCrea'] == "") || ($_REQUEST['editorVJ'] == "") || ($_REQUEST['desarrolladorVJ'] == "") || ($_REQUEST['precio'] == "")) {
         echo "Rellene todos los campos";
     } else {
-        $nombreVJ = $_REQUEST['nombreVJ'];
-        $descripVJ = $_REQUEST['descripVJ'];
-        $fechaCrea = $_REQUEST['fechaCrea'];
-        $editorVJ = $_REQUEST['editorVJ'];
-        $desarrolladorVJ = $_REQUEST['desarrolladorVJ'];
-        $precio = $_REQUEST['precio'];
+        if (isset($_FILES['url_foto'])) {
+            $nombreVJ = $_REQUEST['nombreVJ'];
+            $descripVJ = $_REQUEST['descripVJ'];
+            $fechaCrea = $_REQUEST['fechaCrea'];
+            $editorVJ = $_REQUEST['editorVJ'];
+            $dasarrolladorVJ = $_REQUEST['dasarrolladorVJ'];
+            $precio = $_REQUEST['precio'];
+            $url_foto = $_FILES['url_foto'];
+            $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
 
-        $actualizar = "UPDATE videojuego
-                       SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', 
-                           desarrolladorVJ= '$desarrolladorVJ',  precio= '$precio'
-                       WHERE idVJ = {$_REQUEST['idVJ']}";
+            $name_file = "img_game_" . $_REQUEST['idVJ'];
+            $target_dir = "img/game/";
+            $target_file = $target_dir . $name_file . '.jpg';
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            $check = getimagesize($url_foto["tmp_name"]);
+
+            //Verifica que sea una imagen
+            if ($check == false) {
+                $estado = 0;
+                echo "El archivo no es una imagen";
+                echo "<br>";
+            }
+            //Verificar que solo sean archivos .jpg .png .jpng
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                $estado = 0;
+                echo "El imagen no es de un formato valido, solo se adminten los formatos .jpg / .png / .jpng";
+                echo "<br>";
+            }
+
+            //Verifica el tamaño máximo de la imagen sea 1MB (1mb = 1048576 bytes)
+            if ($url_foto["size"] > 1048576) {
+                $estado = 0;
+                echo "La imagen demasiado grande, por favor use otra imagen";
+                echo "<br>";
+            }
+
+            if ($estado == 1) {
+                move_uploaded_file($url_foto["tmp_name"], $target_file);
+                
+                $actualizar = "UPDATE videojuego
+                           SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', 
+                           dasarrolladorVJ= '$dasarrolladorVJ',  precio= '$precio', url_foto= '$url_foto'
+                           WHERE idVJ = {$_REQUEST['idVJ']}";
+            }
+        } else {
+
+            $nombreVJ = $_REQUEST['nombreVJ'];
+            $descripVJ = $_REQUEST['descripVJ'];
+            $fechaCrea = $_REQUEST['fechaCrea'];
+            $editorVJ = $_REQUEST['editorVJ'];
+            $desarrolladorVJ = $_REQUEST['dasarrolladorVJ'];
+            $precio = $_REQUEST['precio'];
+
+            $actualizar = "UPDATE videojuego
+                          SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', 
+                          desarrolladorVJ= '$desarrolladorVJ',  precio= '$precio'
+                          WHERE idVJ = {$_REQUEST['idVJ']}";
+        }
     }
     if (mysqli_query($conexion, $actualizar)) {
         echo "Juego actualizado";
@@ -238,48 +285,63 @@ if (isset($_REQUEST['editGame'])) {
                                 <div class="card-body">
                                     <?php
                                     ?>
-                                    <form>
+                                    <form class="mx-5 mt-4 needs-validation" novalidate action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="nombreVJ">Nombre del Juego</label>
-                                                <input type="text" class="form-control" id="nombreVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
-                                                                                                                                echo $rowDatosVJ['nombreVJ'];
-                                                                                                                            } ?>">
+                                                <input type="text" class="form-control" id="nombreVJ" name="nombreVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
+                                                                                                                                                echo $rowDatosVJ['nombreVJ'];
+                                                                                                                                            } ?>" required>
+                                                <div class="invalid-feedback">Por favor ingrese un nombre para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="descrpVJ">Descripción del Juego</label>
-                                                <input type="text" class="form-control" id="descrpVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
-                                                                                                                                echo $rowDatosVJ['descrpVJ'];
-                                                                                                                            } ?>">
+                                                <label for="descripVJ">Descripción del Juego</label>
+                                                <textarea class="form-control" id="descripVJ" name="descripVJ" rows="5" placeholder="" required><?php if (isset($rowDatosVJ['descripVJ'])) {
+                                                                                                                                                    echo $rowDatosVJ['descripVJ'];
+                                                                                                                                                } ?></textarea>
+                                                <div class="invalid-feedback">Por favor ingrese una descripción para el juego</div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fechaCrea">Fecha de Creación del Juego</label>
-                                                <input type="date" class="form-control" id="fechaCrea" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
-                                                                                                                                    echo $rowDatosVJ['fechaCrea'];
-                                                                                                                                } ?>">
+                                                <input type="date" class="form-control" id="fechaCrea" name="fechaCrea" placeholder="" value="<?php if (isset($rowDatosVJ['fechaCrea'])) {
+                                                                                                                                                    echo $rowDatosVJ['fechaCrea'];
+                                                                                                                                                } ?>" required>
+                                                <div class="invalid-feedback">Por favor ingrese una fecha para el juego</div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="editorVJ">Editor del Juego</label>
-                                                <input type="text" class="form-control" id="editorVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
-                                                                                                                                echo $rowDatosVJ['editorVJ'];
-                                                                                                                            } ?>">
+                                                <input type="text" class="form-control" id="editorVJ" name="editorVJ" placeholder="" value="<?php if (isset($rowDatosVJ['editorVJ'])) {
+                                                                                                                                                echo $rowDatosVJ['editorVJ'];
+                                                                                                                                            } ?>" required>
+                                                <div class="invalid-feedback">Por favor ingrese un editor para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="dasarrolladorVJ">Desarrollador del Juego</label>
-                                                <input type="text" class="form-control" id="dasarrolladorVJ" placeholder="" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
-                                                                                                                                        echo $rowDatosVJ['dasarrolladorVJ'];
-                                                                                                                                    } ?>">
+                                                <label for="desarrolladorVJ">Desarrollador del Juego</label>
+                                                <input type="text" class="form-control" id="desarrolladorVJ" name="desarrolladorVJ" placeholder="" value="<?php if (isset($rowDatosVJ['desarrolladorVJ'])) {
+                                                                                                                                                                echo $rowDatosVJ['desarrolladorVJ'];
+                                                                                                                                                            } ?>" required>
+                                                <div class="invalid-feedback">Por favor ingrese un desarrollador para el juego</div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="precio">Precio del Juego</label>
-                                                <input type="number" class="form-control" id="precio" placeholder="" min="0" max="120000" value="<?php if (isset($rowDatosVJ['nombreVJ'])) {
-                                                                                                                                                        echo $rowDatosVJ['precio'];
-                                                                                                                                                    } ?>">
+                                                <input type="number" class="form-control" id="precio" name="precio" placeholder="" min="0" max="120000" value="<?php if (isset($rowDatosVJ['precio'])) {
+                                                                                                                                                                    echo $rowDatosVJ['precio'];
+                                                                                                                                                                } ?>" required>
+                                                <div class="invalid-feedback">Por favor ingrese un precio para el juego</div>
+                                            </div>
+                                            <div class="form-check mt-4 mb-4">
+                                                <input class="form-check-input" type="checkbox" value="" id="cambiarImagen" name="cambiarImagen">
+                                                <label class="form-check-label" for="cambiarImagen">Cambiar imagen</label>
+                                            </div>
+                                            <div class="form-group" class="form-label">
+                                                <label for="url_foto">Foto del juego</label>
+                                                <input type="file" class="form-control-file" id="url_foto" name="url_foto" placeholder="" disabled>
+                                                <div class="invalid-feedback">Por favor ingrese una imagen para el juego</div>
                                             </div>
                                         </div>
                                         <!-- /.card-body -->
                                         <div class="card-footer">
-                                            <button type="submit" name="editGame" class="btn btn-primary">Submit</button>
+                                            <button type="submit" name="subirCambios" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                     </div">
@@ -367,6 +429,32 @@ if (isset($_REQUEST['editGame'])) {
                 "responsive": true,
             });
         });
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script>
+        document.getElementById('cambiarImagen').onchange = function() {
+            document.getElementById('url_foto').disabled = !this.checked;
+            document.getElementById('url_foto').required = this.checked;
+        };
     </script>
 </body>
 
