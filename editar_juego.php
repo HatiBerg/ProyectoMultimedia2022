@@ -1,10 +1,10 @@
 <?php
 include 'conexion.php';
-$consultaVJ = "SELECT * FROM videojuego";
+$consultaVJ = "SELECT * FROM `videojuego`";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
 if (isset($_REQUEST['editGame'])) {
-    $consultaDatosVJ = "SELECT * FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
+    $consultaDatosVJ = "SELECT * FROM `videojuego` WHERE idVJ = {$_REQUEST['idVJ']}";
     $runDatosVJ = mysqli_query($conexion, $consultaDatosVJ);
     $rowDatosVJ = mysqli_fetch_assoc($runDatosVJ);
 }
@@ -13,15 +13,19 @@ if (isset($_REQUEST['subirCambios'])) {
     if (($_REQUEST['nombreVJ'] == "") || ($_REQUEST['descripVJ'] == "") || ($_REQUEST['fechaCrea'] == "") || ($_REQUEST['editorVJ'] == "") || ($_REQUEST['desarrolladorVJ'] == "") || ($_REQUEST['precio'] == "")) {
         echo "Rellene todos los campos";
     } else {
+        $nombreVJ = $_POST['nombreVJ'];
+        $descripVJ = $_POST['descripVJ'];
+        $fechaCrea = $_POST['fechaCrea'];
+        $editorVJ = $_POST['editorVJ'];
+        $desarrolladorVJ = $_POST['desarrolladorVJ'];
+        $precio = $_POST['precio'];
+        $estadoSubida = 1;
+
+        $actualizar = "UPDATE videojuego SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', desarrolladorVJ= '$desarrolladorVJ',  precio= $precio WHERE idVJ = {$_REQUEST['idVJ']}";
+
         if (isset($_FILES['url_foto'])) {
-            $nombreVJ = $_REQUEST['nombreVJ'];
-            $descripVJ = $_REQUEST['descripVJ'];
-            $fechaCrea = $_REQUEST['fechaCrea'];
-            $editorVJ = $_REQUEST['editorVJ'];
-            $dasarrolladorVJ = $_REQUEST['dasarrolladorVJ'];
-            $precio = $_REQUEST['precio'];
             $url_foto = $_FILES['url_foto'];
-            $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
+            $estadoFoto = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
 
             $name_file = "img_game_" . $_REQUEST['idVJ'];
             $target_dir = "img/game/";
@@ -31,51 +35,40 @@ if (isset($_REQUEST['subirCambios'])) {
 
             //Verifica que sea una imagen
             if ($check == false) {
-                $estado = 0;
+                $estadoFoto = 0;
                 echo "El archivo no es una imagen";
                 echo "<br>";
             }
             //Verificar que solo sean archivos .jpg .png .jpng
             if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                $estado = 0;
+                $estadoFoto = 0;
                 echo "El imagen no es de un formato valido, solo se adminten los formatos .jpg / .png / .jpng";
                 echo "<br>";
             }
 
-            //Verifica el tamaño máximo de la imagen sea 1MB (1mb = 1048576 bytes)
-            if ($url_foto["size"] > 1048576) {
-                $estado = 0;
+            //Verifica el tamaño máximo de la imagen sea 10MB (10mb = 10485760  bytes)
+            if ($url_foto["size"] > 10485760) {
+                $estadoFoto = 0;
                 echo "La imagen demasiado grande, por favor use otra imagen";
                 echo "<br>";
             }
 
-            if ($estado == 1) {
+            if ($estadoFoto == 1) {
                 move_uploaded_file($url_foto["tmp_name"], $target_file);
-                
-                $actualizar = "UPDATE videojuego
-                           SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', 
-                           dasarrolladorVJ= '$dasarrolladorVJ',  precio= '$precio', url_foto= '$url_foto'
-                           WHERE idVJ = {$_REQUEST['idVJ']}";
+            }
+        }
+        if ($$estadoSubida = 1) {
+            if (mysqli_query($conexion, $actualizar)) {
+                header('Location:editar_juego.php');
+                echo "El juego se ha actualizar";
+            } else {
+                echo "Error: El juego no se pudo actualizar";
+                echo "<br>";
             }
         } else {
-
-            $nombreVJ = $_REQUEST['nombreVJ'];
-            $descripVJ = $_REQUEST['descripVJ'];
-            $fechaCrea = $_REQUEST['fechaCrea'];
-            $editorVJ = $_REQUEST['editorVJ'];
-            $desarrolladorVJ = $_REQUEST['dasarrolladorVJ'];
-            $precio = $_REQUEST['precio'];
-
-            $actualizar = "UPDATE videojuego
-                          SET nombreVJ= '$nombreVJ', descripVJ= '$descripVJ',  fechaCrea= '$fechaCrea',  editorVJ= '$editorVJ', 
-                          desarrolladorVJ= '$desarrolladorVJ',  precio= '$precio'
-                          WHERE idVJ = {$_REQUEST['idVJ']}";
+            echo "Error: El juego no se pudo actualizar";
+            echo "<br>";
         }
-    }
-    if (mysqli_query($conexion, $actualizar)) {
-        echo "Juego actualizado";
-    } else {
-        echo "Juego no actualizado";
     }
 }
 ?>
@@ -222,60 +215,6 @@ if (isset($_REQUEST['subirCambios'])) {
                 <div class="container-fluid">
                     <!-- Main row -->
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Juegos Registrados en la Base de Datos</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="tabla_juegos" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nombre</th>
-                                                <th>Descripcion</th>
-                                                <th>Fecha de Creación</th>
-                                                <th>Editor</th>
-                                                <th>Desarrollador</th>
-                                                <th>Visitas</th>
-                                                <th>Precio</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            if ($num = mysqli_num_rows($runVJ) > 0) {
-                                                while ($result = mysqli_fetch_assoc($runVJ)) {
-                                                    echo "  
-                                                        <tr class='data'>  
-                                                            <td>" . $result['idVJ'] . "</td>  
-                                                            <td>" . $result['nombreVJ'] . "</td>  
-                                                            <td>" . $result['descripVJ'] . "</td>  
-                                                            <td>" . $result['fechaCrea'] . "</td>  
-                                                            <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . $result['visitas'] . "</td>
-                                                            <td>" . "$ " . $result['precio'] . "</td>
-                                                            <td><form action='' method='POST'>
-                                                            <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
-                                                            <input type='submit' class='btn btn-sm btn-danger' name='editGame' value='Editar'>
-                                                            </form></td>
-                                                        </tr>  
-                                                    ";
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <div class="row">
                         <div class="col-6 mx-auto">
                             <div class="card card-primary">
                                 <div class="card-header">
@@ -341,13 +280,63 @@ if (isset($_REQUEST['subirCambios'])) {
                                         </div>
                                         <!-- /.card-body -->
                                         <div class="card-footer">
-                                            <button type="submit" name="subirCambios" class="btn btn-primary">Submit</button>
+                                            <input type='hidden' name='idVJ' value=" <?php echo $rowDatosVJ['idVJ'] ?>">
+                                            <button type="submit" name="subirCambios" class="btn btn-primary">Editar videojuego</button>
                                         </div>
                                     </form>
                                     </div">
                                 </div>
                                 <!-- /.row (main row) -->
                             </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Juegos Registrados en la Base de Datos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_juegos" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Editor</th>
+                                                <th>Desarrollador</th>
+                                                <th>Precio</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            if ($num = mysqli_num_rows($runVJ) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runVJ)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idVJ'] . "</td>  
+                                                            <td>" . $result['nombreVJ'] . "</td>  
+                                                            <td>" . $result['descripVJ'] . "</td>  
+                                                            <td>" . $result['fechaCrea'] . "</td>  
+                                                            <td>" . $result['editorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>
+                                                            <td>" . "$ " . $result['precio'] . "</td>
+                                                            <td><form action='' method='POST'>
+                                                            <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
+                                                            <input type='submit' class='btn btn-sm btn-warning' name='editGame' value='Editar'>
+                                                            </form></td>
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
                         </div>
                         <!-- /.row (main row) -->
                     </div>
@@ -455,6 +444,22 @@ if (isset($_REQUEST['subirCambios'])) {
             document.getElementById('url_foto').disabled = !this.checked;
             document.getElementById('url_foto').required = this.checked;
         };
+    </script>
+    <script>
+        $(document).ready(function() {
+            maxFileSize = 10 * 1024 * 1024; // 10MB
+
+            $("#url_foto").change(function() {
+                fileSize = this.files[0].size;
+
+                if (fileSize > maxFileSize) {
+                    this.setCustomValidity("El archivo es demasiado grande, solo se admiten 10MB máximo");
+                    this.reportValidity();
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+        });
     </script>
 </body>
 

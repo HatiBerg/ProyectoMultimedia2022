@@ -225,8 +225,8 @@ include 'conexion.php';
                                             echo "<br>";
                                         }
 
-                                        //Verifica el tamaño máximo de la imagen sea 1MB (1mb = 1048576 bytes)
-                                        if ($url_foto["size"] > 1048576) {
+                                        //Verifica el tamaño máximo de la imagen sea 10MB (10mb = 10485760  bytes)
+                                        if ($url_foto["size"] > 10485760 ) {
                                             $estado = 0;
                                             echo "La imagen demasiado grande, por favor use otra imagen";
                                             echo "<br>";
