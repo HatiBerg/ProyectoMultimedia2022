@@ -145,7 +145,7 @@ $imageS = mysqli_fetch_assoc($runS);
             </div>
             <div class="container-fluid col-10 justify-content-center ">
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-                <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>
+                    <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>
                 </a>
             </div>
         </div>
@@ -156,3 +156,26 @@ $imageS = mysqli_fetch_assoc($runS);
 </body>
 
 </html>
+
+<?php 
+require 'conexion.php';
+
+$message = '';
+
+if (!empty($_POST['email']) && !empty($_POST['password'])) {
+    $consultaEmail = "SELECT COUNT(id) AS existeEmail FROM usuario WHERE email = {$_POST['email']}";
+    $runEmail = mysqli_query($conexion, $consultaEmail);
+    $existeEmail = mysqli_fetch_assoc($runEmail);
+    if(existeEmail['existeEmail']){
+    $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':email', $_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $stmt->bindParam(':password', $password);
+    if ($stmt->execute()) {
+        $message = 'Usuario creado';
+    } else {
+        $message = 'Error al crear usuario';
+    }
+}
+} ?>

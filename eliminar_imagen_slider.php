@@ -383,7 +383,7 @@ if (isset($_REQUEST['deleteVJ'])) {
     <!-- Page specific script -->
     <script>
         $(function() {
-            $('#tabla_juegos').DataTable({
+            $('#tabla_slider').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
