@@ -1,14 +1,7 @@
 <?php
-<<<<<<< Updated upstream
-session_start();
-=======
-//if (isset($_COOKIE["EMAIL"])) {
-//echo $_COOKIE["EMAIL"];
-//}
 
 session_start();
 
->>>>>>> Stashed changes
 require 'conexion.php';
 
 if (!empty($_POST['email']) && !empty($_POST['password'])) {

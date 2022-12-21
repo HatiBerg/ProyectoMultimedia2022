@@ -1,12 +1,7 @@
 <?php
 include 'conexion.php';
-<<<<<<< Updated upstream
 
 /*$message = '';
-=======
-/*
-$message = '';
->>>>>>> Stashed changes
 
 if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm_password']) && !empty($_POST['tipoUser'])) {
     if ($_POST['password'] === $_POST['confirm_password']) {

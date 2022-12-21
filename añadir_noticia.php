@@ -320,7 +320,7 @@ include 'conexion.php';
 
                                             if (mysqli_query($conexion, $añadir)) {
                                                 $logFile = fopen("log.txt", 'a');
-                                                fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha añadido una noticia de la base de datos");
+                                                fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha añadido una noticia ha la base de datos");
                                                 echo "La noticia se a subido con exito";
                                                 echo "<br>";
                                             } else {
