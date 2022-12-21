@@ -1,7 +1,7 @@
 <?php
 include 'conexion.php';
-$consultaVJ = "SELECT * FROM videojuego";
-$runVJ = mysqli_query($conexion, $consultaVJ);
+$consultaN = "SELECT * FROM noticia";
+$runN = mysqli_query($conexion, $consultaN);
 
 session_start();
 
@@ -51,10 +51,10 @@ if (isset($_SESSION['user_id'])) {
                                 <a class="nav-link" href="index1.php">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="catalogo.php">Catálogo</a>
+                                <a class="nav-link" href="catalogo.php">Catálogo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="noticia.php">Noticias</a>
+                                <a class="nav-link active" aria-current="page" href="noticia.php">Noticias</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="">Estadísticas</a>
@@ -85,36 +85,30 @@ if (isset($_SESSION['user_id'])) {
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
             <div class="d-flex col-10 mx-auto">
-                <table id="table_catalogo" class="display">
+                <table id="tabla_noticia" class="display">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
+                            <th>Titulo</th>
                             <th>Descripcion</th>
-                            <th>Fecha de Creación</th>
-                            <th>Editor</th>
-                            <th>Desarrollador</th>
-                            <th>Precio</th>
+                            <th>Autor</th>
+                            <th>Fecha de creación</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        if ($num = mysqli_num_rows($runVJ) > 0) {
-                            while ($result = mysqli_fetch_assoc($runVJ)) {
+
+                        if ($num = mysqli_num_rows($runN) > 0) {
+                            while ($result = mysqli_fetch_assoc($runN)) {
                                 echo "  
-                            <tr class='data'>  
-                                <td>" . $result['idVJ'] . "</td>  
-                                <td>" . $result['nombreVJ'] . "</td>  
-                                <td>" . $result['descripVJ'] . "</td>  
-                                <td>" . $result['fechaCrea'] . "</td>  
-                                <td>" . $result['editorVJ'] . "</td>  
-                                <td>" . $result['desarrolladorVJ'] . "</td>";
-                                if ($result['precio'] == 0) {
-                                    echo '<td>Gratis</td>';
-                                } else {
-                                    echo "<td>" . "$ " . $result['precio'] . "</td>";
-                                }
-                                echo "</tr>";
+                                <tr class='data'>  
+                                    <td>" . $result['idN'] . "</td>
+                                    <td>" . $result['tituloN'] . "</td>
+                                    <td>" . $result['descripN'] . "</td>
+                                    <td>" . $result['autorN'] . "</td>
+                                    <td>" . $result['fechaN'] . "</td>
+                                </tr>  
+                            ";
                             }
                         }
                         ?>
@@ -138,7 +132,7 @@ if (isset($_SESSION['user_id'])) {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
-            $('#table_catalogo').DataTable();
+            $('#tabla_noticia').DataTable();
         });
     </script>
 </body>
