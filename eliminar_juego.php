@@ -7,10 +7,9 @@ $runVJ = mysqli_query($conexion, $consultaVJ);
 if (isset($_REQUEST['deleteVJ'])) {
     $deleteVJ = "DELETE FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
     if (mysqli_query($conexion, $deleteVJ)) {
-        $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado un videojuego de la base de datos', now(), {$_REQUEST['idVJ']})";
-        if (mysqli_query($conexion, $log)) {
-            header('Location:eliminar_juego.php');
-        }
+        $logFile = fopen("log.txt", 'a');
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha eliminado un videojuego de la base de datos");
+        header('Location:eliminar_juego.php');
     } else {
         echo "Error: " . mysqli_error($conexion);
     }
@@ -214,12 +213,6 @@ if (isset($_REQUEST['deleteVJ'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -245,6 +238,17 @@ if (isset($_REQUEST['deleteVJ'])) {
                         </div>
                         <!-- /.col -->
                     </div>
+
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -262,7 +266,6 @@ if (isset($_REQUEST['deleteVJ'])) {
                                                 <th>Fecha de Creación</th>
                                                 <th>Editor</th>
                                                 <th>Desarrollador</th>
-                                                <th>Visitas</th>
                                                 <th>Precio</th>
                                                 <th></th>
                                             </tr>
@@ -279,15 +282,18 @@ if (isset($_REQUEST['deleteVJ'])) {
                                                             <td>" . $result['descripVJ'] . "</td>  
                                                             <td>" . $result['fechaCrea'] . "</td>  
                                                             <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . $result['visitas'] . "</td>
-                                                            <td>" . "$ " . $result['precio'] . "</td>
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>";
+                                                            if ($result['precio'] == 0) {
+                                                                echo '<td>Gratis</td>';
+                                                            } else {
+                                                                echo "<td>" . "$" . $result['precio'] . "</td>";
+                                                            }
+                                                            echo"
                                                             <td><form action='' method='POST'>
                                                             <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
                                                             <input type='submit' class='btn btn-sm btn-danger' name='deleteVJ' value='Eliminar'>
                                                             </form></td>
-                                                        </tr>
-                                                    ";
+                                                        </tr>";
                                                 }
                                             }
                                             ?>
@@ -299,19 +305,6 @@ if (isset($_REQUEST['deleteVJ'])) {
                             <!-- /.card -->
                         </div>
                         <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Main row -->
-                    <div class="row">
-
                     </div>
                     <!-- /.row (main row) -->
                 </div>

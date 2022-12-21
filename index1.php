@@ -1,9 +1,10 @@
 <?php
 include 'conexion.php';
 
-$consultaS = "SELECT * FROM slider";
-$runS = mysqli_query($conexion, $consultaS);
-$imageS = mysqli_fetch_assoc($runS);
+$consultaVJ = "SELECT * FROM videojuego WHERE mostrarSlider= 1";
+$runVJ = mysqli_query($conexion, $consultaVJ);
+$imageVJ = mysqli_fetch_assoc($runVJ);
+
 session_start();
 
 require 'conexion.php';
@@ -91,20 +92,21 @@ if (isset($_SESSION['user_id'])) {
                 <div id="slider" class="container-fluid carousel slide col-8" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <?php
+
                         echo '
                          <div class="carousel-item active" data-bs-interval="7000">
-                            <img id="slider-img" src="' . $imageS["fotoS"] . '" class="d-block w-100">
+                            <img id="slider-img" src="' . $imageVJ["url_foto"] . '" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
-                                <h1 class="text-danger">"' . $imageS["tituloS"] . '"</h1>
+                                <h1 class="text-danger">"' . $imageVJ["nombreVJ"] . '"</h1>
                             </div>
                         </div>
                     ';
-                        while ($result = mysqli_fetch_assoc($runS)) {
+                        while ($result = mysqli_fetch_assoc($runVJ)) {
                             echo '
                          <div class="carousel-item" data-bs-interval="7000">
-                            <img id="slider-img" src="' . $result["fotoS"] . '" class="d-block w-100">
+                            <img id="slider-img" src="' . $result["url_foto"] . '" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
-                                <h1 class="text-danger">"' . $result["tituloS"] . '"</h1>
+                                <h1 class="text-danger">"' . $result["nombreVJ"] . '"</h1>
                             </div>
                         </div>
                     ';

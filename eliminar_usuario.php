@@ -1,13 +1,16 @@
 <?php
 include 'conexion.php';
 
-$consultaVJ = "SELECT * FROM videojuego";
+$consultaVJ = "SELECT * FROM usuario";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
-if (isset($_REQUEST['delete'])) {
-    $deleteVJ = "DELETE FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
-    if (mysqli_query($conexion, $deleteVJ)) {
-        header('Location:eliminar_juego.php');
+if (isset($_REQUEST['deleteU'])) {
+
+    
+
+    $deleteUser = "DELETE FROM usuario WHERE id = {$_REQUEST['id']}";
+    if (mysqli_query($conexion, $deleteUser)) {
+        header('Location:eliminar_usuario.php');
     } else {
         echo "Error: " . mysqli_error($conexion);
     }
@@ -211,12 +214,6 @@ if (isset($_REQUEST['delete'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -254,13 +251,7 @@ if (isset($_REQUEST['delete'])) {
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Nombre</th>
-                                                <th>Descripcion</th>
-                                                <th>Fecha de Creación</th>
-                                                <th>Editor</th>
-                                                <th>Desarrollador</th>
-                                                <th>Visitas</th>
-                                                <th>Precio</th>
+                                                <th>Correo Electrónico</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -271,17 +262,11 @@ if (isset($_REQUEST['delete'])) {
                                                 while ($result = mysqli_fetch_assoc($runVJ)) {
                                                     echo " 
                                                         <tr class='data'>  
-                                                            <td>" . $result['idVJ'] . "</td>
-                                                            <td>" . $result['nombreVJ'] . "</td>
-                                                            <td>" . $result['descripVJ'] . "</td>  
-                                                            <td>" . $result['fechaCrea'] . "</td>  
-                                                            <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . $result['visitas'] . "</td>
-                                                            <td>" . "$ " . $result['precio'] . "</td>
+                                                            <td>" . $result['id'] . "</td>
+                                                            <td>" . $result['email'] . "</td>
                                                             <td><form action='' method='POST'>
                                                             <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
-                                                            <input type='submit' class='btn btn-sm btn-danger' name='delete' value='Eliminar'>
+                                                            <input type='submit' class='btn btn-sm btn-danger' name='deleteU' value='Eliminar'>
                                                             </form></td>
                                                         </tr>
                                                     ";

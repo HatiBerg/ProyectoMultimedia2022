@@ -6,10 +6,16 @@ $runVJ = mysqli_query($conexion, $consultaVJ);
 $consultaU = "SELECT * FROM usuario";
 $runU = mysqli_query($conexion, $consultaU);
 
+$consultaClientes = "SELECT * FROM usuario WHERE tipoUser= 'CLIENTE'";
+$runClientes = mysqli_query($conexion, $consultaClientes);
+
+$consultaEmpleados = "SELECT * FROM usuario U JOIN empleado E ON U.id=E.id WHERE tipoUser= 'EMPLEADO'";
+$runEmpleados = mysqli_query($conexion, $consultaEmpleados);
+
 $consultaN = "SELECT * FROM noticia";
 $runN = mysqli_query($conexion, $consultaN);
 
-$consultaS = "SELECT * FROM slider";
+$consultaS = "SELECT * FROM videojuego WHERE mostrarSlider= 1";
 $runS = mysqli_query($conexion, $consultaS);
 
 ?>
@@ -211,12 +217,6 @@ $runS = mysqli_query($conexion, $consultaS);
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -321,7 +321,7 @@ $runS = mysqli_query($conexion, $consultaS);
                                         echo "<h3> 0 </h3>";
                                     }
                                     ?>
-                                    <p>Total de Cambios Realizados</p>
+                                    <p>Total de Juegos en el Slider</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
@@ -364,8 +364,49 @@ $runS = mysqli_query($conexion, $consultaS);
                                                             <td>" . $result['descripVJ'] . "</td>  
                                                             <td>" . $result['fechaCrea'] . "</td>  
                                                             <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . "$ " . $result['precio'] . "</td>
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>";
+                                                    if ($result['precio'] == 0) {
+                                                        echo '<td>Gratis</td>';
+                                                    } else {
+                                                        echo "<td>" . "$ " . $result['precio'] . "</td>";
+                                                    }
+                                                    echo "</tr>";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Clientes Registrados en la Base de Datos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_clientes" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Correo Electrónico</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+
+                                            if ($num = mysqli_num_rows($runClientes) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runClientes)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['id'] . "</td>  
+                                                            <td>" . $result['email'] . "</td>  
                                                         </tr>  
                                                     ";
                                                 }
@@ -384,28 +425,28 @@ $runS = mysqli_query($conexion, $consultaS);
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Usuarios Registrados en la Base de Datos</h3>
+                                    <h3 class="card-title">Empleados Registrados en la Base de Datos</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tabla_usuario" class="table table-bordered table-hover">
+                                    <table id="tabla_empleados" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Correo Electrónico</th>
-                                                <th>Alias</th>
-                                                <th>Fecha de Nacimiento</th>
+                                                <th>Rol</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
 
-                                            if ($num = mysqli_num_rows($runU) > 0) {
+                                            if ($num = mysqli_num_rows($runEmpleados) > 0) {
                                                 while ($result = mysqli_fetch_assoc($runU)) {
                                                     echo "  
-                                                        <tr class='data'>  
-                                                            <td>" . $result['emailU'] . "</td>  
-                                                            <td>" . $result['aliasU'] . "</td>  
-                                                            <td>" . $result['fechaNacU'] . "</td>  
+                                                        <tr class='data'>
+                                                            <td>" . $result['id'] . "</td>  
+                                                            <td>" . $result['email'] . "</td>
+                                                            <td>" . $result['rol'] . "</td>  
                                                         </tr>  
                                                     ";
                                                 }
@@ -476,8 +517,12 @@ $runS = mysqli_query($conexion, $consultaS);
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Nombre VideoJuego</th>
-                                                <th>URL de la Imagen</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Editor</th>
+                                                <th>Desarrollador</th>
+                                                <th>Precio</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -485,12 +530,19 @@ $runS = mysqli_query($conexion, $consultaS);
                                             if ($num = mysqli_num_rows($runS) > 0) {
                                                 while ($result = mysqli_fetch_assoc($runS)) {
                                                     echo "  
-                                                        <tr class='data'>  
-                                                            <td>" . $result['idVJ'] . "</td>
-                                                            <td>" . $result['tituloS'] . "</td>
-                                                            <td>" . $result['fotoS'] . "</td>
-                                                        </tr>  
-                                                    ";
+                                                    <tr class='data'>  
+                                                        <td>" . $result['idVJ'] . "</td>  
+                                                        <td>" . $result['nombreVJ'] . "</td>  
+                                                        <td>" . $result['descripVJ'] . "</td>  
+                                                        <td>" . $result['fechaCrea'] . "</td>  
+                                                        <td>" . $result['editorVJ'] . "</td>  
+                                                        <td>" . $result['desarrolladorVJ'] . "</td>";
+                                                    if ($result['precio'] == 0) {
+                                                        echo '<td>Gratis</td>';
+                                                    } else {
+                                                        echo "<td>" . "$ " . $result['precio'] . "</td>";
+                                                    }
+                                                    echo "</tr>";
                                                 }
                                             }
                                             ?>
@@ -502,8 +554,8 @@ $runS = mysqli_query($conexion, $consultaS);
                             <!-- /.card -->
                         </div>
                         <!-- /.col -->
-                        <!-- /.row (main row) -->
                     </div>
+                    <!-- /.row (main row) -->
                     <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
@@ -585,7 +637,7 @@ $runS = mysqli_query($conexion, $consultaS);
         });
 
         $(function() {
-            $('#tabla_usuario').DataTable({
+            $('#tabla_clientes').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -595,6 +647,19 @@ $runS = mysqli_query($conexion, $consultaS);
                 "responsive": true,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#tabla_usuario_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function() {
+            $('#tabla_empleados').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabla_log_wrapper .col-md-6:eq(0)');
         });
 
         $(function() {
@@ -609,20 +674,6 @@ $runS = mysqli_query($conexion, $consultaS);
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#tabla_noticia_wrapper .col-md-6:eq(0)');
         });
-
-        $(function() {
-            $('#tabla_log').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "responsive": true,
-                "buttons": ["csv", "excel", "pdf", "print"]
-            }).buttons().container().appendTo('#tabla_log_wrapper .col-md-6:eq(0)');
-        });
-
         $(function() {
             $('#tabla_slider').DataTable({
                 "paging": true,

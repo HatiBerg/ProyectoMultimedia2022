@@ -268,12 +268,6 @@ if (isset($_REQUEST['subirCambios'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -408,21 +402,25 @@ if (isset($_REQUEST['subirCambios'])) {
                                             <?php
                                             if ($num = mysqli_num_rows($runVJ) > 0) {
                                                 while ($result = mysqli_fetch_assoc($runVJ)) {
-                                                    echo "  
+                                                    echo " 
                                                         <tr class='data'>  
-                                                            <td>" . $result['idVJ'] . "</td>  
-                                                            <td>" . $result['nombreVJ'] . "</td>  
+                                                            <td>" . $result['idVJ'] . "</td>
+                                                            <td>" . $result['nombreVJ'] . "</td>
                                                             <td>" . $result['descripVJ'] . "</td>  
                                                             <td>" . $result['fechaCrea'] . "</td>  
                                                             <td>" . $result['editorVJ'] . "</td>  
-                                                            <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . "$ " . $result['precio'] . "</td>
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>";
+                                                            if ($result['precio'] == 0) {
+                                                                echo '<td>Gratis</td>';
+                                                            } else {
+                                                                echo "<td>" . "$" . $result['precio'] . "</td>";
+                                                            }
+                                                            echo"
                                                             <td><form action='' method='POST'>
                                                             <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
                                                             <input type='submit' class='btn btn-sm btn-warning' name='editGame' value='Editar'>
                                                             </form></td>
-                                                        </tr>  
-                                                    ";
+                                                        </tr> ";
                                                 }
                                             }
                                             ?>

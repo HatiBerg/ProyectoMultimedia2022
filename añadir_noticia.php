@@ -195,12 +195,6 @@ include 'conexion.php';
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -325,11 +319,10 @@ include 'conexion.php';
                                                        VALUES ('$tituloN', '$descripN', '$autorN', '$fechaN', '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
-                                                $log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido una noticia a la base de datos', now(), {$rowcantMaxN['cantMaxN']})";
-                                                if (mysqli_query($conexion, $log)) {
-                                                    echo "La noticia se a subido con exito";
-                                                    echo "<br>";
-                                                }
+                                                $logFile = fopen("log.txt", 'a');
+                                                fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha añadido una noticia de la base de datos");
+                                                echo "La noticia se a subido con exito";
+                                                echo "<br>";
                                             } else {
                                                 echo "Error al subir la noticia, por favor intente de nuevo";
                                                 echo "<br>";
@@ -339,6 +332,7 @@ include 'conexion.php';
                                             echo "<br>";
                                         }
                                     }
+
                                     ?>
                                 </div>
                             </div>

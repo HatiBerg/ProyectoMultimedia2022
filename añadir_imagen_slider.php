@@ -1,5 +1,22 @@
 <?php
 include 'conexion.php';
+
+$consultaVJ = "SELECT * FROM videojuego WHERE mostrarSlider= 0";
+$runVJ = mysqli_query($conexion, $consultaVJ);
+
+$consultaS = "SELECT * FROM videojuego WHERE mostrarSlider= 1";
+$runS = mysqli_query($conexion, $consultaS);
+
+if (isset($_REQUEST['addVJ'])) {
+    $addSlider = "UPDATE videojuego SET mostrarSlider= 1 WHERE idVJ= {$_REQUEST['idVJ']}";
+    if (mysqli_query($conexion,$addSlider)) {
+        $logFile = fopen("log.txt", 'a');
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha añadido un videojuego de la base de datos al slider");
+        header('Location:añadir_imagen_slider.php');
+    } else {
+        echo "Error: " . mysqli_error($conexion);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +47,10 @@ include 'conexion.php';
     <link rel="stylesheet" href="lib/adminlte/plugins/daterangepicker/daterangepicker.css" />
     <!-- summernote -->
     <link rel="stylesheet" href="lib/adminlte/plugins/summernote/summernote-bs4.min.css" />
+    <!-- DataTables -->
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="lib/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
@@ -195,12 +216,6 @@ include 'conexion.php';
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -237,96 +252,63 @@ include 'conexion.php';
                 <div class="container-fluid">
                     <!-- Main row -->
                     <div class="row">
-                        <div class="col-10 mx-auto">
-                            <div class="card card-primary">
+                        <div class="col-12">
+                            <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Ingrese la Información del Juego</h3>
+                                    <h3 class="card-title">Juegos Registrados que no estan en el Slider</h3>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body border-end border-5">
-                                    <form class="mx-5 mt-4 needs-validation" novalidate action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="tituloS" class="form-label">Nombre del Juego</label>
-                                                <input type="text" class="form-control" id="tituloS" name="tituloS" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese un nombre para el juego</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="fotoS" class="form-label">Foto del Juego</label>
-                                                <input type="file" class="form-control" id="fotoS" name="fotoS" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese una foto para el juego</div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <button type="submit" name="añadirImgS" class="btn btn-primary btn-lg">Subir videojuego</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="text-center mb-3 fs-3 text-success">
-                                    <?php
-                                    if (isset($_POST['añadirImgS'])) {
-                                        $tituloS = $_POST['tituloS'];
-                                        $fotoS = $_FILES['fotoS'];
-                                        $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
+                                <div class="card-body ">
+                                    <table id="tabla_juegos" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Editor</th>
+                                                <th>Desarrollador</th>
+                                                <th>Precio</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
 
-                                        $cantMaxVJ = "SELECT MAX(idS)+1 AS cantMaxVJ FROM videojuego";
-                                        $resultCantMaxVJ = mysqli_query($conexion, $cantMaxVJ);
-                                        $rowCantMaxVJ = mysqli_fetch_array($resultCantMaxVJ);
-
-                                        $name_file = "img_slider_" . $rowCantMaxVJ['cantMaxVJ'];
-                                        $target_dir = "img/slider/";
-                                        $target_file = $target_dir . $name_file . '.jpg';
-                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                                        $check = getimagesize($url_foto["tmp_name"]);
-
-                                        //Verifica que sea una imagen
-                                        if ($check == false) {
-                                            $estado = 0;
-                                            echo "El archivo no es una imagen";
-                                            echo "<br>";
-                                        }
-                                        //Verificar que solo sean archivos .jpg .png .jpng
-                                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                                            $estado = 0;
-                                            echo "El imagen no es de un formato valido, solo se adminten los formatos .jpg / .png / .jpng";
-                                            echo "<br>";
-                                        }
-
-                                        //Verifica el tamaño máximo de la imagen sea 10MB (10mb = 10485760  bytes)
-                                        if ($url_foto["size"] > 10485760) {
-                                            $estado = 0;
-                                            echo "La imagen demasiado grande, por favor use otra imagen";
-                                            echo "<br>";
-                                        }
-
-                                        //Estado de subida del archivo
-                                        if ($estado == 1) {
-                                            move_uploaded_file($url_foto["tmp_name"], $target_file);
-
-                                            $añadir = "INSERT INTO videojuego(tituloS, fotoS) 
-                                                       VALUES ('$tituloS', '$target_file')";
-
-                                            if (mysqli_query($conexion, $añadir)) {
-                                                $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido un videojuego a la base de datos', now(), {$rowCantMaxVJ['cantMaxVJ']})";
-                                                if (mysqli_query($conexion, $Log)) {
-                                                    echo "El videojuego se a subido con exito";
-                                                    echo "<br>";
+                                            if ($num = mysqli_num_rows($runVJ) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runVJ)) {
+                                                    echo " 
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idVJ'] . "</td>
+                                                            <td>" . $result['nombreVJ'] . "</td>
+                                                            <td>" . $result['descripVJ'] . "</td>  
+                                                            <td>" . $result['fechaCrea'] . "</td>  
+                                                            <td>" . $result['editorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>";
+                                                            if ($result['precio'] == 0) {
+                                                                echo '<td>Gratis</td>';
+                                                            } else {
+                                                                echo "<td>" . "$" . $result['precio'] . "</td>";
+                                                            }
+                                                            echo"
+                                                            <td><form action='' method='POST'>
+                                                            <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
+                                                            <input type='submit' class='btn btn-sm btn-primary' name='addVJ' value='Añadir'>
+                                                            </form></td>
+                                                        </tr>";
                                                 }
-                                            } else {
-                                                echo "Error al subir el videojuego, por favor intente de nuevo";
-                                                echo "<br>";
                                             }
-                                        } else {
-                                            echo "Error al subir el videojuego, por favor intente de nuevo";
-                                            echo "<br>";
-                                        }
-                                    }
-                                    ?>
+                                            ?>
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <!-- /.card-body -->
                             </div>
+                            <!-- /.card -->
                         </div>
-                        <!-- /.row (main row) -->
+                        <!-- /.col -->
                     </div>
+                    <!-- /.row (main row) -->
                 </div>
                 <!-- /.container-fluid -->
             </section>
@@ -380,6 +362,43 @@ include 'conexion.php';
     <script src="lib/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="lib/adminlte/dist/js/adminlte.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="lib/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="lib/adminlte/plugins/jszip/jszip.min.js"></script>
+    <script src="lib/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="lib/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="lib/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script>
+        $(function() {
+            $('#tabla_juegos').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+        $(function() {
+            $('#tabla_slider').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {

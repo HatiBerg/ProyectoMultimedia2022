@@ -1,16 +1,15 @@
 <?php
 include 'conexion.php';
 
-$consultaS = "SELECT * FROM slider";
+$consultaS = "SELECT * FROM videojuego WHERE mostrarSlider= 1";
 $runS = mysqli_query($conexion, $consultaS);
 
-if (isset($_REQUEST['deleteS'])) {
-    $deleteS = "DELETE FROM slider WHERE idS = {$_REQUEST['idS']}";
-    if (mysqli_query($conexion, $deleteS)) {
-        $log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado una imágen del slider de la base de datos', now(), {$_REQUEST['idS']})";
-        if (mysqli_query($conexion, $log)) {
-            header('Location:eliminar_imagen_slider.php');
-        }
+if (isset($_REQUEST['removeVJ'])) {
+    $removeSlider = "UPDATE videojuego SET mostrarSlider= 0 WHERE idVJ= {$_REQUEST['idVJ']}";
+    if (mysqli_query($conexion, $removeSlider)) {
+        $logFile = fopen("log.txt", 'a');
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha eliminado un videojuego del slider");
+        header('Location:eliminar_imagen_slider.php');
     } else {
         echo "Error: " . mysqli_error($conexion);
     }
@@ -214,12 +213,6 @@ if (isset($_REQUEST['deleteS'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link active">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -245,53 +238,6 @@ if (isset($_REQUEST['deleteS'])) {
                         </div>
                         <!-- /.col -->
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Imágenes Registradas en la Base de Datos para el Slider</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body ">
-                                    <table id="tabla_slider" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Titulo</th>
-                                                <th>URL</th>
-                                                <th>URL Imagen</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-
-                                            if ($num = mysqli_num_rows($runS) > 0) {
-                                                while ($result = mysqli_fetch_assoc($runS)) {
-                                                    echo " 
-                                                        <tr class='data'>  
-                                                            <td>" . $result['idS'] . "</td>
-                                                            <td>" . $result['tituloS'] . "</td>
-                                                            <td>" . $result['urlS'] . "</td>  
-                                                            <td>" . $result['fotoS'] . "</td>  
-                                                            <td><form action='' method='POST'>
-                                                            <input type='hidden' name='idS' value=" . $result['idS'] . ">
-                                                            <input type='submit' class='btn btn-sm btn-danger' name='deleteS' value='Eliminar'>
-                                                            </form></td>
-                                                        </tr>
-                                                    ";
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
@@ -303,7 +249,61 @@ if (isset($_REQUEST['deleteS'])) {
                 <div class="container-fluid">
                     <!-- Main row -->
                     <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Juegos Registrados que estan en el Slider</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body ">
+                                    <table id="tabla_juegos" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Editor</th>
+                                                <th>Desarrollador</th>
+                                                <th>Precio</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
 
+                                            if ($num = mysqli_num_rows($runS) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runS)) {
+                                                    echo " 
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idVJ'] . "</td>
+                                                            <td>" . $result['nombreVJ'] . "</td>
+                                                            <td>" . $result['descripVJ'] . "</td>  
+                                                            <td>" . $result['fechaCrea'] . "</td>  
+                                                            <td>" . $result['editorVJ'] . "</td>  
+                                                            <td>" . $result['desarrolladorVJ'] . "</td>";
+                                                            if ($result['precio'] == 0) {
+                                                                echo '<td>Gratis</td>';
+                                                            } else {
+                                                                echo "<td>" . "$" . $result['precio'] . "</td>";
+                                                            }
+                                                            echo"
+                                                            <td><form action='' method='POST'>
+                                                            <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
+                                                            <input type='submit' class='btn btn-sm btn-danger' name='removeVJ' value='Eliminar'>
+                                                            </form></td>
+                                                        </tr>";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
                     </div>
                     <!-- /.row (main row) -->
                 </div>

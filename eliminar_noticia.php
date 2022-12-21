@@ -7,14 +7,13 @@ $runN = mysqli_query($conexion, $consultaN);
 if (isset($_REQUEST['deleteN'])) {
     $deleteN = "DELETE FROM noticia WHERE idN = {$_REQUEST['idN']}";
     if (mysqli_query($conexion, $deleteN)) {
-        $log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado una noticia de la base de datos', now(), {$_REQUEST['idN']})";
-        if (mysqli_query($conexion, $log)) {
-            header('Location:eliminar_noticia.php');
-        }
-    } else {
+        $logFile = fopen("log.txt", 'a');
+        fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha eliminado una noticia de la base de datos");
+        header('Location:eliminar_noticia.php');
+    }else {
         echo "Error: " . mysqli_error($conexion);
     }
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -211,12 +210,6 @@ if (isset($_REQUEST['deleteN'])) {
                                     <a href="añadir_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

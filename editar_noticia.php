@@ -57,10 +57,9 @@ if (isset($_REQUEST['subirCambiosN'])) {
         }
         if ($$estadoSubida = 1) {
             if (mysqli_query($conexion, $actualizar)) {
-                $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha modificado una noticia de la base de datos', now(), {$_REQUEST['idN']})";
-                if (mysqli_query($conexion, $Log)) {
-                    header('Location:editar_noticia.php');
-                }
+                $logFile = fopen("log.txt", 'a');
+                fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha editado una noticia de la base de datos");
+                header('Location:editar_noticia.php');
             } else {
                 echo "Error: La noticia no se pudo actualizar";
                 echo "<br>";
@@ -270,12 +269,6 @@ if (isset($_REQUEST['subirCambiosN'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>Editar imagen</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
@@ -340,15 +333,15 @@ if (isset($_REQUEST['subirCambiosN'])) {
                                             <div class="form-group">
                                                 <label for="autorN">Autor de la Noticia</label>
                                                 <input type="text" class="form-control" id="autorN" name="autorN" placeholder="" value="<?php if (isset($rowDatosN['autorN'])) {
-                                                                                                                                                    echo $rowDatosN['autorN'];
-                                                                                                                                                } ?>" required>
+                                                                                                                                            echo $rowDatosN['autorN'];
+                                                                                                                                        } ?>" required>
                                                 <div class="invalid-feedback">Por favor ingrese el autor para la noticia</div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="fechaN">Fecha de la Noticia</label>
                                                 <input type="date" class="form-control" id="fechaN" name="fechaN" placeholder="" value="<?php if (isset($rowDatosN['fechaN'])) {
-                                                                                                                                                echo $rowDatosN['fechaN'];
-                                                                                                                                            } ?>" required>
+                                                                                                                                            echo $rowDatosN['fechaN'];
+                                                                                                                                        } ?>" required>
                                                 <div class="invalid-feedback">Por favor ingrese un fecha para la noticia</div>
                                             </div>
                                             <div class="form-check mt-4 mb-4">
@@ -368,6 +361,10 @@ if (isset($_REQUEST['subirCambiosN'])) {
                                         </div>
                                     </form>
                                     </div">
+                                    <div class="text-center mb-3 fs-3 text-success">
+
+                                    
+                                    </div>
                                 </div>
                                 <!-- /.row (main row) -->
                             </div>
