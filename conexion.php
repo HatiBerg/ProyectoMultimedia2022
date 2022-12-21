@@ -5,4 +5,3 @@ $password = '';
 $database = 'gamecenter';
 
 $conexion = mysqli_connect($server, $username, $password, $database);
-?>
