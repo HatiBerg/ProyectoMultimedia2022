@@ -61,7 +61,7 @@ if (isset($_REQUEST['subirCambios'])) {
             if (mysqli_query($conexion, $actualizar)) {
                 $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha modificado un videojuego de la base de datos', now(), {$_REQUEST['idVJ']})";
                 if (mysqli_query($conexion, $Log)) {
-                    header('Location:editar_juego.php');
+                    header('Location:editar_imagen_slider.php');
                 }
             } else {
                 echo "Error: El juego no se pudo actualizar";
@@ -169,7 +169,7 @@ if (isset($_REQUEST['subirCambios'])) {
                                 <p>Inicio</p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-gamepad"></i>
                                 <p>
@@ -185,7 +185,7 @@ if (isset($_REQUEST['subirCambios'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_juego.php" class="nav-link active">
+                                    <a href="editar_juego.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar Juego</p>
                                     </a>
@@ -256,7 +256,7 @@ if (isset($_REQUEST['subirCambios'])) {
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item menu-open">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-image"></i>
                                 <p>
@@ -272,7 +272,7 @@ if (isset($_REQUEST['subirCambios'])) {
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="editar_imagen_slider.php" class="nav-link">
+                                    <a href="editar_imagen_slider.php" class="nav-link active">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar imagen</p>
                                     </a>
@@ -507,7 +507,7 @@ if (isset($_REQUEST['subirCambios'])) {
     <!-- Page specific script -->
     <script>
         $(function() {
-            $('#tabla_juegos').DataTable({
+            $('#tabla_slider').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,

@@ -72,23 +72,19 @@ $imageS = mysqli_fetch_assoc($runS);
                         <?php
                         echo '
                          <div class="carousel-item active" data-bs-interval="7000">
-                         <a href="' . $imageS["urlS"] . '">
                             <img id="slider-img" src="' . $imageS["fotoS"] . '" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
-                                <h1>"' . $imageS["tituloS"] . '"</h1>
+                                <h1 class="text-danger">"' . $imageS["tituloS"] . '"</h1>
                             </div>
-                         </a>
                         </div>
                     ';
                         while ($result = mysqli_fetch_assoc($runS)) {
                             echo '
                          <div class="carousel-item" data-bs-interval="7000">
-                         <a href="' . $result["urlS"] . '">
                             <img id="slider-img" src="' . $result["fotoS"] . '" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
-                                <h1>"' . $result["tituloS"] . '"</h1>
+                                <h1 class="text-danger">"' . $result["tituloS"] . '"</h1>
                             </div>
-                         </a>
                         </div>
                     ';
                         }
@@ -156,26 +152,3 @@ $imageS = mysqli_fetch_assoc($runS);
 </body>
 
 </html>
-
-<?php 
-require 'conexion.php';
-
-$message = '';
-
-if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    $consultaEmail = "SELECT COUNT(id) AS existeEmail FROM usuario WHERE email = {$_POST['email']}";
-    $runEmail = mysqli_query($conexion, $consultaEmail);
-    $existeEmail = mysqli_fetch_assoc($runEmail);
-    if(existeEmail['existeEmail']){
-    $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':email', $_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $stmt->bindParam(':password', $password);
-    if ($stmt->execute()) {
-        $message = 'Usuario creado';
-    } else {
-        $message = 'Error al crear usuario';
-    }
-}
-} ?>

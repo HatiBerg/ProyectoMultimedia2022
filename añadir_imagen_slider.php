@@ -92,7 +92,7 @@ include 'conexion.php';
                                 <p>Inicio</p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-gamepad"></i>
                                 <p>
@@ -102,7 +102,7 @@ include 'conexion.php';
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="añadir_juego.php" class="nav-link active">
+                                    <a href="añadir_juego.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir Juego</p>
                                     </a>
@@ -179,7 +179,7 @@ include 'conexion.php';
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item menu-open">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-image"></i>
                                 <p>
@@ -189,7 +189,7 @@ include 'conexion.php';
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="añadir_imagen_slider.php" class="nav-link">
+                                    <a href="añadir_imagen_slider.php" class="nav-link active">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir imagen</p>
                                     </a>
@@ -247,64 +247,34 @@ include 'conexion.php';
                                     <form class="mx-5 mt-4 needs-validation" novalidate action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="nombreVJ" class="form-label">Nombre del Juego</label>
-                                                <input type="text" class="form-control" id="nombreVJ" name="nombreVJ" placeholder="" required>
+                                                <label for="tituloS" class="form-label">Nombre del Juego</label>
+                                                <input type="text" class="form-control" id="tituloS" name="tituloS" placeholder="" required>
                                                 <div class="invalid-feedback">Por favor ingrese un nombre para el juego</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="descripVJ" class="form-label">Descripción del Juego</label>
-                                                <textarea class="form-control" id="descripVJ" name="descripVJ" placeholder="" rows="5" required></textarea>
-                                                <div class="invalid-feedback">Por favor ingrese una descripción para el juego</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="fechaCrea" class="form-label">Fecha de Creación del Juego</label>
-                                                <input type="date" class="form-control" id="fechaCrea" name="fechaCrea" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese una fecha para el juego</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="editorVJ" class="form-label">Editor del Juego</label>
-                                                <input type="text" class="form-control" id="editorVJ" name="editorVJ" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese un editor para el juego</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="desarrolladorVJ" class="form-label">Desarrollador del Juego</label>
-                                                <input type="text" class="form-control" id="desarrolladorVJ" name="desarrolladorVJ" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese un desarrollador para el juego</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="precio" class="form-label">Precio del Juego</label>
-                                                <input type="number" class="form-control" id="precio" name="precio" placeholder="" min="0" max="120000" required>
-                                                <div class="invalid-feedback">Por favor ingrese un precio para el juego</div>
-                                            </div>
-                                            <div class="form-group" class="form-label">
-                                                <label for="url_foto">Foto del juego</label>
-                                                <input type="file" class="form-control-file" id="url_foto" name="url_foto" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese una imagen para el juego</div>
+                                                <label for="fotoS" class="form-label">Foto del Juego</label>
+                                                <input type="file" class="form-control" id="fotoS" name="fotoS" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese una foto para el juego</div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" name="añadirJuego" class="btn btn-primary btn-lg">Subir videojuego</button>
+                                            <button type="submit" name="añadirImgS" class="btn btn-primary btn-lg">Subir videojuego</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="text-center mb-3 fs-3 text-success">
                                     <?php
-                                    if (isset($_POST['añadirJuego'])) {
-                                        $nombreVJ = $_POST['nombreVJ'];
-                                        $descripVJ = $_POST['descripVJ'];
-                                        $fechaCrea = $_POST['fechaCrea'];
-                                        $editorVJ = $_POST['editorVJ'];
-                                        $desarrolladorVJ = $_POST['desarrolladorVJ'];
-                                        $precio = $_POST['precio'];
-                                        $url_foto = $_FILES['url_foto'];
+                                    if (isset($_POST['añadirImgS'])) {
+                                        $tituloS = $_POST['tituloS'];
+                                        $fotoS = $_FILES['fotoS'];
                                         $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
 
-                                        $cantMaxVJ = "SELECT MAX(idVJ)+1 AS cantMaxVJ FROM videojuego";
+                                        $cantMaxVJ = "SELECT MAX(idS)+1 AS cantMaxVJ FROM videojuego";
                                         $resultCantMaxVJ = mysqli_query($conexion, $cantMaxVJ);
                                         $rowCantMaxVJ = mysqli_fetch_array($resultCantMaxVJ);
 
-                                        $name_file = "img_game_" . $rowCantMaxVJ['cantMaxVJ'];
-                                        $target_dir = "img/game/";
+                                        $name_file = "img_slider_" . $rowCantMaxVJ['cantMaxVJ'];
+                                        $target_dir = "img/slider/";
                                         $target_file = $target_dir . $name_file . '.jpg';
                                         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
                                         $check = getimagesize($url_foto["tmp_name"]);
@@ -333,8 +303,8 @@ include 'conexion.php';
                                         if ($estado == 1) {
                                             move_uploaded_file($url_foto["tmp_name"], $target_file);
 
-                                            $añadir = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, precio, url_foto) 
-                                                       VALUES ('$nombreVJ', '$descripVJ', '$fechaCrea','$editorVJ', '$desarrolladorVJ', $precio, '$target_file')";
+                                            $añadir = "INSERT INTO videojuego(tituloS, fotoS) 
+                                                       VALUES ('$tituloS', '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
                                                 $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido un videojuego a la base de datos', now(), {$rowCantMaxVJ['cantMaxVJ']})";
