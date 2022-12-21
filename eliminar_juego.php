@@ -4,7 +4,7 @@ include 'conexion.php';
 $consultaVJ = "SELECT * FROM videojuego";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
-if (isset($_REQUEST['delete'])) {
+if (isset($_REQUEST['deleteVJ'])) {
     $deleteVJ = "DELETE FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
     if (mysqli_query($conexion, $deleteVJ)) {
         $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado un videojuego de la base de datos', now(), {$_REQUEST['idVJ']})";
@@ -284,7 +284,7 @@ if (isset($_REQUEST['delete'])) {
                                                             <td>" . "$ " . $result['precio'] . "</td>
                                                             <td><form action='' method='POST'>
                                                             <input type='hidden' name='idVJ' value=" . $result['idVJ'] . ">
-                                                            <input type='submit' class='btn btn-sm btn-danger' name='delete' value='Eliminar'>
+                                                            <input type='submit' class='btn btn-sm btn-danger' name='deleteVJ' value='Eliminar'>
                                                             </form></td>
                                                         </tr>
                                                     ";

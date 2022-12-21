@@ -15,10 +15,6 @@ $runN = mysqli_query($conexion, $consultaN);
 $consultaS = "SELECT * FROM slider";
 $runS = mysqli_query($conexion, $consultaS);
 
-$consultaVisitasVJ = "SELECT SUM(visitas) AS cantVistas FROM videojuego";
-$runVisitasVJ = mysqli_query($conexion, $consultaVisitasVJ);
-$rowVisitasVJ = mysqli_fetch_assoc($runVisitasVJ);
-$sumVisitasVJ = $rowVisitasVJ['cantVistas'];
 ?>
 
 <!DOCTYPE html>
@@ -322,13 +318,13 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <?php
-                                    if ($cantVJRegis = mysqli_num_rows($runVJ)) {
-                                        echo "<h3>" . $sumVisitasVJ . "</h3>";
+                                    if ($cantLogRegis = mysqli_num_rows($runLog)) {
+                                        echo "<h3>" . $cantLogRegis . "</h3>";
                                     } else {
                                         echo "<h3> 0 </h3>";
                                     }
                                     ?>
-                                    <p>Total de Juegos Visitados</p>
+                                    <p>Total de Cambios Realizados</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
@@ -398,7 +394,6 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                                                 <th>Fecha de Creación</th>
                                                 <th>Editor</th>
                                                 <th>Desarrollador</th>
-                                                <th>Visitas</th>
                                                 <th>Precio</th>
                                             </tr>
                                         </thead>
@@ -415,7 +410,6 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                                                             <td>" . $result['fechaCrea'] . "</td>  
                                                             <td>" . $result['editorVJ'] . "</td>  
                                                             <td>" . $result['desarrolladorVJ'] . "</td>
-                                                            <td>" . $result['visitas'] . "</td>
                                                             <td>" . "$ " . $result['precio'] . "</td>
                                                         </tr>  
                                                     ";

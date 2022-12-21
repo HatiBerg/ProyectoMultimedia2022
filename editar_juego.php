@@ -1,10 +1,10 @@
 <?php
 include 'conexion.php';
-$consultaVJ = "SELECT * FROM `videojuego`";
+$consultaVJ = "SELECT * FROM videojuego";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
 if (isset($_REQUEST['editGame'])) {
-    $consultaDatosVJ = "SELECT * FROM `videojuego` WHERE idVJ = {$_REQUEST['idVJ']}";
+    $consultaDatosVJ = "SELECT * FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
     $runDatosVJ = mysqli_query($conexion, $consultaDatosVJ);
     $rowDatosVJ = mysqli_fetch_assoc($runDatosVJ);
 }

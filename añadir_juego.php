@@ -333,8 +333,8 @@ include 'conexion.php';
                                         if ($estado == 1) {
                                             move_uploaded_file($url_foto["tmp_name"], $target_file);
 
-                                            $añadir = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, visitas, precio, url_foto) 
-                                                       VALUES ('$nombreVJ', '$descripVJ', '$fechaCrea','$editorVJ', '$desarrolladorVJ', 0, $precio, '$target_file')";
+                                            $añadir = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, precio, url_foto) 
+                                                       VALUES ('$nombreVJ', '$descripVJ', '$fechaCrea','$editorVJ', '$desarrolladorVJ', $precio, '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
                                                 $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido un videojuego a la base de datos', now(), {$rowCantMaxVJ['cantMaxVJ']})";
@@ -429,6 +429,22 @@ include 'conexion.php';
                 });
             }, false);
         })();
+    </script>
+    <script>
+        $(document).ready(function() {
+            maxFileSize = 10 * 1024 * 1024; // 10MB
+
+            $("#url_foto").change(function() {
+                fileSize = this.files[0].size;
+
+                if (fileSize > maxFileSize) {
+                    this.setCustomValidity("El archivo es demasiado grande, solo se admiten 10MB máximo");
+                    this.reportValidity();
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+        });
     </script>
 </body>
 
