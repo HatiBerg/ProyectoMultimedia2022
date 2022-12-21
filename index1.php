@@ -125,7 +125,7 @@ $imageS = mysqli_fetch_assoc($runS);
             <div id="row3" class="d-flex mb-2 fs-1">
 
                 <div id="recomendados" class="container-fluid col-11">
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                    <a href="">
                         <img class="img-fluid rounded" src="./img/recomendados.jpg">
                     </a>
                 </div>
@@ -137,47 +137,6 @@ $imageS = mysqli_fetch_assoc($runS);
                 <div id="videos2" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" src="https://www.youtube.com/embed/CptaXqVY6-E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                 <div id="videos3" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" src="https://www.youtube.com/embed/F3jePdO9_jc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
             </div>
-
-            <div id="row5" class="d-flex fs-1">
-
-                <div id="menu" class="container-fluid fs-5">
-                    <nav class="navbar navbar-expand-lg navbar-dark">
-                        <div class="container-fluid text-light">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Acción</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Aventura</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Arcade</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Deportes</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Estrategia</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Simulación</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Juegos de mesa</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">Juegos musicales</a>
-                                    </li>
-                                </ul>
-                            </div>
-                    </nav>
-                </div>
-            </div>
-
         </div>
 
         <div id="footer" class="d-outline-flex text-center text-light">
@@ -185,7 +144,9 @@ $imageS = mysqli_fetch_assoc($runS);
                 <button id="btn-back-to-top" class="btn btn-dark fs-5" type="button">Inicio de Página</button>
             </div>
             <div class="container-fluid col-10 justify-content-center ">
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                 <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>
+                </a>
             </div>
         </div>
 
