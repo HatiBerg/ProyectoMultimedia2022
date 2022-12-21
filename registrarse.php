@@ -12,6 +12,7 @@ if (isset($_COOKIE["EMAIL"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="lib/personal/style.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
     
@@ -58,6 +59,15 @@ if (isset($_COOKIE["EMAIL"])) {
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-5">
+        <h1>Registarse</h1>
+    <span>o <a href="iniciar_sesion.php">Iniciar sesión</a></span>
+
+    <form action="signup.php" method="POST">
+      <input name="email" type="text" placeholder="Correo electrónico">
+      <input name="password" type="password" placeholder="Contraseña">
+      <input name="confirm_password" type="password" placeholder="Confirmar contraseña">
+      <input type="submit" value="Registrar datos">
+    </form>
         </div>
 
         <div id="footer" class="d-outline-flex text-center  text-light">

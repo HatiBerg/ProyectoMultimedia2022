@@ -51,6 +51,14 @@
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
+        <h1>Iniciar sesión</h1>
+    <span>o <a href="registrarse.php">Registrarse</a></span>
+
+    <form action="login.php" method="POST">
+      <input name="email" type="text" placeholder="Correo electrónico">
+      <input name="password" type="password" placeholder="Contaseña">
+      <input type="submit" value="Ingresar">
+    </form>
         </div>
 
         <div id="footer" class="d-outline-flex text-center text-light">
