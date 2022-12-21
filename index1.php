@@ -62,31 +62,32 @@ if (isset($_SESSION['user_id'])) {
                                 <a class="nav-link" href="catalogo.php">Catálogo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Noticias</a>
+                                <a class="nav-link" href="noticias.php">Noticias</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="">Estadísticas</a>
                             </li>
+                            <!--
                             <li class="nav-item">
                                 <a class="nav-link" href="iniciar_sesion.php">Iniciar sesion</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="registrarse.php">Registrarse</a>
                             </li>
-                            
+                            -->
                             <li class="nav-item">
                                 <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
                         </ul>
                         <?php if (!empty($user)) : ?>
 
-                            <div class="d-flex"> 
-                                <p class="me-3" style="color:rgb(1000,1000,1000);">Bienvenido. <?= $user['email']; ?></p>                       
+                            <div class="d-flex">
+                                <p class="me-3" style="color:rgb(1000,1000,1000);">Bienvenido. <?= $user['email']; ?></p>
                                 <a href="iniciar_sesion.php">
                                     Salir
                                 </a>
                             <?php else : ?>
-                              
+
                             <?php endif; ?>
                             </div>
                     </div>
@@ -218,7 +219,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="d-grid gap-2">
                 <button id="btn-back-to-top" class="btn btn-dark fs-5" type="button">Inicio de Página</button>
             </div>
-            
+
             <div class="container-fluid col-10 justify-content-center ">
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                     <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>
