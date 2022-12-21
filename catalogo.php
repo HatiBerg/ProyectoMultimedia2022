@@ -32,6 +32,12 @@
                                 <a class="nav-link active" aria-current="page" href="catalogo.php">Catálogo</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="">Noticias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Estadísticas</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="iniciar_sesion.php">Iniciar sesion</a>
                             </li>
                             <li class="nav-item">

@@ -1,6 +1,6 @@
 <?php
 //if (isset($_COOKIE["EMAIL"])) {
-    //echo $_COOKIE["EMAIL"];
+//echo $_COOKIE["EMAIL"];
 //}
 
 /*session_start();*/
@@ -18,7 +18,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
     if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
         $_SESSION['user_id'] = $results['id'];
         header("location:index1.php");
-    }else{
+    } else {
         $message = 'la contraseña no corresponde';
     }
 }
@@ -56,6 +56,12 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="catalogo.php">Catálogo</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Noticias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Estadísticas</a>
+                            </li>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="iniciar_sesion.php">Iniciar sesion</a>
@@ -73,20 +79,20 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
-          
-       
-        <h1>Iniciar sesión</h1>
-    <span>o <a href="registrarse.php">Registrarse</a></span>
 
-    <?php if (!empty($message)) : ?>
-        <p><?= $message ?></p>
-        <?php endif;?> 
 
-    <form action="iniciar_sesion.php" method="POST">
-      <input name="email" type="text" placeholder="Correo electrónico">
-      <input name="password" type="password" placeholder="Contaseña">
-      <input type="submit" value="Ingresar">
-    </form>
+            <h1>Iniciar sesión</h1>
+            <span>o <a href="registrarse.php">Registrarse</a></span>
+
+            <?php if (!empty($message)) : ?>
+                <p><?= $message ?></p>
+            <?php endif; ?>
+
+            <form action="iniciar_sesion.php" method="POST">
+                <input name="email" type="text" placeholder="Correo electrónico">
+                <input name="password" type="password" placeholder="Contaseña">
+                <input type="submit" value="Ingresar">
+            </form>
         </div>
 
         <div id="footer" class="d-outline-flex text-center text-light">
