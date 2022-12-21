@@ -1,7 +1,12 @@
 <?php
 include 'conexion.php';
+<<<<<<< Updated upstream
 
 /*$message = '';
+=======
+/*
+$message = '';
+>>>>>>> Stashed changes
 
 if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm_password']) && !empty($_POST['tipoUser'])) {
     if ($_POST['password'] === $_POST['confirm_password']) {
@@ -293,22 +298,26 @@ if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['conf
                                             </div>
                                             <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
                                             <div class="form-check mt-1">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                <input class="form-check-input" type="radio" name="CLIENTE" id="CLIENTE" value="CLIENTE" checked>
+                                                <label class="form-check-label" for="CLIENTE">
                                                     Cliente
                                                 </label>
                                             </div>
                                             <div class="form-check mt-2">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                <input class="form-check-input" type="radio" name="EMPLEADO" id="EMPLEADO" value="EMPLEADO">
+                                                <label class="form-check-label" for="EMPLEADO">
                                                     Empleado
                                                 </label>
                                             </div>
                                             <div class="form-group mt-4">
                                                 <label for="rol" class="form-label">Rol</label>
-                                                <input type="text" class="form-control" id="rol" name="rol" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese el rol del empleado</div>
                                             </div>
+                                            <select class="form-select mb-2" aria-label="Rol">
+                                                <option selected>Open this select menu</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
                                         </div>
                                         <div class="card-footer">
                                             <button type="submit" name="añadirUsuario" class="btn btn-primary btn-lg">Añadir Usuario</button>
