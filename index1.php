@@ -4,6 +4,22 @@ include 'conexion.php';
 $consultaS = "SELECT * FROM slider";
 $runS = mysqli_query($conexion, $consultaS);
 $imageS = mysqli_fetch_assoc($runS);
+session_start();
+
+require 'conexion.php';
+
+if (isset($_SESSION['user_id'])) {
+    $records = $conn->prepare('SELECT id, email, password FROM usuario WHERE id = :id');
+    $records->bindParam(':id', $_SESSION['user_id']);
+    $records->execute();
+    $results = $records->fetch(PDO::FETCH_ASSOC);
+
+    $user = null;
+
+    if (count($results) > 0) {
+        $user = $results;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,12 +71,17 @@ $imageS = mysqli_fetch_assoc($runS);
                                 <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
                         </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit">Buscar</button>
-                        </form>
+                        <?php if (!empty($user)) : ?>
+
+                            <div class="d-flex"> 
+                                <p class="me-3" style="color:rgb(1000,1000,1000);">Bienvenido. <?= $user['email']; ?></p>                       
+                                <a href="iniciar_sesion.php">
+                                    Salir
+                                </a>
+                            <?php else : ?>
+                            <?php endif; ?>
+                            </div>
                     </div>
-                </div>
             </nav>
         </div>
 
