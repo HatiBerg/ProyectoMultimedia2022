@@ -46,9 +46,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
-                            
                         </ul>
-                        
                     </div>
                 </div>
             </nav>

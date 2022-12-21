@@ -1,5 +1,41 @@
 <?php
 include 'conexion.php';
+
+$message = '';
+
+if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm_password']) && !empty($_POST['tipoUser'])) {
+    if ($_POST['password'] === $_POST['confirm_password']) {
+        //comprobación de datos duplicados
+        $existeEmail = $conn->prepare("SELECT * FROM usuario WHERE email=:email;");
+        $existeEmail->bindParam(":email", $_POST['email']);
+        $existeEmail->execute();
+
+        if ($existeEmail->rowCount() >= 1) {
+            $message = 'Este correo eletrónico ya esta en uso';
+        } else {
+            $sql = "INSERT INTO usuario (email, password, tipoUser) VALUES (:email, :password, :tipoUser)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':email', $_POST['email']);
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':tipoUser', $_POST['tipoUser']);
+
+            if ($stmt->execute()) {
+                $maxUsers = "SELECT MAX(id) AS max FROM usuario";
+                $runMaxUsers = mysqli_query($conexion, $maxUsers);
+                $resultMaxUsers = mysqli_fetch_array($runMaxUsers);
+                $addCustomer = "INSERT INTO cliente(id) VALUES({$resultMaxUsers['max']})";
+                if (mysqli_query($conexion, $addCustomer)) {
+                    $message = 'Usuario creado';
+                }
+            } else {
+                $message = 'Error al crear usuario';
+            }
+        }
+    } else {
+        $message = 'Las contraseñas no coinciden';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -241,108 +277,43 @@ include 'conexion.php';
                                     <form class="mx-5 mt-4 needs-validation" novalidate action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="nombreVJ" class="form-label">Nombre del Juego</label>
-                                                <input type="text" class="form-control" id="nombreVJ" name="nombreVJ" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese un nombre para el juego</div>
+                                                <label for="email" class="form-label">Correo Electrónico</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese su correo electrónico</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="descrpVJ" class="form-label">Descripción del Juego</label>
-                                                <textarea class="form-control" id="descripVJ" name="descripVJ" placeholder="" rows="5" required></textarea>
-                                                <div class="invalid-feedback">Por favor ingrese una descripción para el juego</div>
+                                                <label for="password" class="form-label">Contraseña</label>
+                                                <input type="text" class="form-control" id="password" name="password" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese una contraseña</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="fechaCrea" class="form-label">Fecha de Creación del Juego</label>
-                                                <input type="date" class="form-control" id="fechaCrea" name="fechaCrea" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese una fecha para el juego</div>
+                                                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                                                <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor confirmé su contraseña</div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="editorVJ" class="form-label">Editor del Juego</label>
-                                                <input type="text" class="form-control" id="editorVJ" name="editorVJ" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese un editor para el juego</div>
+                                            <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+                                            <div class="form-check mt-1">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Cliente
+                                                </label>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="dasarrolladorVJ" class="form-label">Desarrollador del Juego</label>
-                                                <input type="text" class="form-control" id="dasarrolladorVJ" name="dasarrolladorVJ" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese un desarrollador para el juego</div>
+                                            <div class="form-check mt-2">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    Empleado
+                                                </label>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="precio" class="form-label">Precio del Juego</label>
-                                                <input type="number" class="form-control" id="precio" name="precio" placeholder="" min="0" max="120000" required>
-                                                <div class="invalid-feedback">Por favor ingrese un precio para el juego</div>
-                                            </div>
-                                            <div class="form-group" class="form-label">
-                                                <label for="url_foto">Foto del juego</label>
-                                                <input type="file" class="form-control-file" id="url_foto" name="url_foto" placeholder="" required>
-                                                <div class="invalid-feedback">Por favor ingrese una imagen para el juego</div>
+                                            <div class="form-group mt-4">
+                                                <label for="rol" class="form-label">Rol</label>
+                                                <input type="text" class="form-control" id="rol" name="rol" placeholder="" required>
+                                                <div class="invalid-feedback">Por favor ingrese el rol del empleado</div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" name="añadirJuego" class="btn btn-primary btn-lg">Subir videojuego</button>
+                                            <button type="submit" name="añadirUsuario" class="btn btn-primary btn-lg">Añadir Usuario</button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="text-center mb-3 fs-3 text-success">
-                                    <?php
-                                    if (isset($_POST['añadirJuego'])) {
-                                        $nombreVJ = $_POST['nombreVJ'];
-                                        $descripVJ = $_POST['descripVJ'];
-                                        $fechaCrea = $_POST['fechaCrea'];
-                                        $editorVJ = $_POST['editorVJ'];
-                                        $desarrolladorVJ = $_POST['dasarrolladorVJ'];
-                                        $precio = $_POST['precio'];
-                                        $url_foto = $_FILES['url_foto'];
-                                        $estado = 1; // estado de subida del formulario | Estados posibles ==> 0 = Error / 1 = Subir formulario
-
-                                        $cantMaxVJ = "SELECT MAX(idVJ)+1 AS cantMaxVJ FROM videojuego";
-                                        $resultCantMaxVJ = mysqli_query($conexion, $cantMaxVJ);
-                                        $rowCantMaxVJ = mysqli_fetch_array($resultCantMaxVJ);
-
-                                        $name_file = "img_game_" . $rowCantMaxVJ['cantMaxVJ'];
-                                        $target_dir = "img/game/";
-                                        $target_file = $target_dir . $name_file . '.jpg';
-                                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                                        $check = getimagesize($url_foto["tmp_name"]);
-
-                                        //Verifica que sea una imagen
-                                        if ($check == false) {
-                                            $estado = 0;
-                                            echo "El archivo no es una imagen";
-                                            echo "<br>";
-                                        }
-                                        //Verificar que solo sean archivos .jpg .png .jpng
-                                        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                                            $estado = 0;
-                                            echo "El imagen no es de un formato valido, solo se adminten los formatos .jpg / .png / .jpng";
-                                            echo "<br>";
-                                        }
-
-                                        //Verifica el tamaño máximo de la imagen sea 10MB (10mb = 10485760  bytes)
-                                        if ($url_foto["size"] > 10485760) {
-                                            $estado = 0;
-                                            echo "La imagen demasiado grande, por favor use otra imagen";
-                                            echo "<br>";
-                                        }
-
-                                        //Estado de subida del archivo
-                                        if ($estado == 1) {
-                                            move_uploaded_file($url_foto["tmp_name"], $target_file);
-
-                                            $añadir = "INSERT INTO videojuego(nombreVJ, descripVJ, fechaCrea, editorVJ, desarrolladorVJ, visitas, precio, url_foto) 
-                                                       VALUES ('$nombreVJ', $descripVJ, '$fechaCrea','$editorVJ', $desarrolladorVJ, 0, '$precio', '$target_file')";
-
-                                            if (mysqli_query($conexion, $añadir)) {
-                                                echo "El videojuego se a subido con exito";
-                                                echo "<br>";
-                                            } else {
-                                                echo "Error al subir el videojuego, por favor intente de nuevo";
-                                                echo "<br>";
-                                            }
-                                        } else {
-                                            echo "Error al subir el videojuego, por favor intente de nuevo";
-                                            echo "<br>";
-                                        }
-                                    }
-                                    ?>
                                 </div>
                             </div>
                         </div>

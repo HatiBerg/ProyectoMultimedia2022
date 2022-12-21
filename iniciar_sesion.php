@@ -43,41 +43,6 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
             <div class="container-fluid fs-1">Banner</div>
         </div>
 
-        <div id="menu" class="container-fluid fs-5">
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <div class="container-fluid text-light">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index1.php">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="catalogo.php">Catálogo</a>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Noticias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Estadísticas</a>
-                            </li>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="iniciar_sesion.php">Iniciar sesion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="registrarse.php">Registrarse</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="administracion.php">Administración</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
 
 
@@ -91,6 +56,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
             <form action="iniciar_sesion.php" method="POST">
                 <input name="email" type="text" placeholder="Correo electrónico">
                 <input name="password" type="password" placeholder="Contaseña">
+
                 <input type="submit" value="Ingresar">
             </form>
         </div>
