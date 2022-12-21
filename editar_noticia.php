@@ -324,11 +324,11 @@ if (isset($_REQUEST['subirCambiosN'])) {
                                     <form class="mx-5 mt-4 needs-validation" novalidate action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="tituloN">Nombre de la Noticia</label>
+                                                <label for="tituloN">Titulo de la Noticia</label>
                                                 <input type="text" class="form-control" id="tituloN" name="tituloN" placeholder="" value="<?php if (isset($rowDatosN['tituloN'])) {
                                                                                                                                                 echo $rowDatosN['tituloN'];
                                                                                                                                             } ?>" required>
-                                                <div class="invalid-feedback">Por favor ingrese un nombre para la noticia</div>
+                                                <div class="invalid-feedback">Por favor ingrese un titulo para la noticia</div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="descripN">Descripción de la Noticia</label>
@@ -338,18 +338,18 @@ if (isset($_REQUEST['subirCambiosN'])) {
                                                 <div class="invalid-feedback">Por favor ingrese una descripción para la noticia</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="autorN">Fecha de Creación de la Noticia</label>
-                                                <input type="date" class="form-control" id="autorN" name="autorN" placeholder="" value="<?php if (isset($rowDatosN['autorN'])) {
+                                                <label for="autorN">Autor de la Noticia</label>
+                                                <input type="text" class="form-control" id="autorN" name="autorN" placeholder="" value="<?php if (isset($rowDatosN['autorN'])) {
                                                                                                                                                     echo $rowDatosN['autorN'];
                                                                                                                                                 } ?>" required>
-                                                <div class="invalid-feedback">Por favor ingrese una fecha para la noticia</div>
+                                                <div class="invalid-feedback">Por favor ingrese el autor para la noticia</div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="fechaN">Editor de la Noticia</label>
-                                                <input type="text" class="form-control" id="fechaN" name="fechaN" placeholder="" value="<?php if (isset($rowDatosN['fechaN'])) {
+                                                <label for="fechaN">Fecha de la Noticia</label>
+                                                <input type="date" class="form-control" id="fechaN" name="fechaN" placeholder="" value="<?php if (isset($rowDatosN['fechaN'])) {
                                                                                                                                                 echo $rowDatosN['fechaN'];
                                                                                                                                             } ?>" required>
-                                                <div class="invalid-feedback">Por favor ingrese un editor para la noticia</div>
+                                                <div class="invalid-feedback">Por favor ingrese un fecha para la noticia</div>
                                             </div>
                                             <div class="form-check mt-4 mb-4">
                                                 <input class="form-check-input" type="checkbox" value="" id="cambiarImagen" name="cambiarImagen">

@@ -321,12 +321,12 @@ include 'conexion.php';
                                         if ($estado == 1) {
                                             move_uploaded_file($fotoN["tmp_name"], $target_file);
 
-                                            $añadir = "INSERT INTO noticia(tituloN, descripN, fechaN, autorN, fotoN) 
-                                                       VALUES ('$tituloN', '$descripN', '$fechaN','$autorN', '$target_file')";
+                                            $añadir = "INSERT INTO noticia(tituloN, descripN, autorN, fechaN, fotoN) 
+                                                       VALUES ('$tituloN', '$descripN', '$autorN', '$fechaN', '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
-                                                $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido una noticia a la base de datos', now(), {$rowcantMaxN['cantMaxN']})";
-                                                if (mysqli_query($conexion, $Log)) {
+                                                $log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido una noticia a la base de datos', now(), {$rowcantMaxN['cantMaxN']})";
+                                                if (mysqli_query($conexion, $log)) {
                                                     echo "La noticia se a subido con exito";
                                                     echo "<br>";
                                                 }

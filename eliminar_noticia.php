@@ -7,7 +7,7 @@ $runN = mysqli_query($conexion, $consultaN);
 if (isset($_REQUEST['deleteN'])) {
     $deleteN = "DELETE FROM noticia WHERE idN = {$_REQUEST['idN']}";
     if (mysqli_query($conexion, $deleteN)) {
-        $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado una noticia de la base de datos', now(), {$_REQUEST['idN']})";
+        $log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado una noticia de la base de datos', now(), {$_REQUEST['idN']})";
         if (mysqli_query($conexion, $log)) {
             header('Location:eliminar_noticia.php');
         }
