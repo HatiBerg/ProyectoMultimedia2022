@@ -26,23 +26,33 @@ $message = '';
 }
 */
 if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['tipoUser'])) {
-    $sql = "INSERT INTO usuario (email, password, tipoUser) VALUES (:email, :password, :tipoUser)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':email', $_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $stmt->bindParam(':password', $password);
-    $stmt->bindParam(':tipoUser', $_POST['tipoUser']);
 
-    if ($stmt->execute()) {
-        $maxUsers = "SELECT MAX(id) AS max FROM usuario";
-        $runMaxUsers = mysqli_query($conexion, $maxUsers);
-        $resultMaxUsers = mysqli_fetch_array($runMaxUsers);
-        $addCustomer = "INSERT INTO cliente(id) VALUES({$resultMaxUsers['max']})";
-        if (mysqli_query($conexion, $addCustomer)) {
-            $message = 'Usuario creado';
-        }
+    //comprobación de datos duplicados
+    $existeEmail = $conn->prepare("SELECT * FROM usuario WHERE email=:email;");
+    $existeEmail->bindParam(":email", $_POST['email']);
+    $existeEmail->execute();
+
+    if ($existeEmail->rowCount() >= 1) {
+        $message = 'Este correo eletrónico ya esta en uso';
     } else {
-        $message = 'Error al crear usuario';
+        $sql = "INSERT INTO usuario (email, password, tipoUser) VALUES (:email, :password, :tipoUser)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $_POST['email']);
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':tipoUser', $_POST['tipoUser']);
+
+        if ($stmt->execute()) {
+            $maxUsers = "SELECT MAX(id) AS max FROM usuario";
+            $runMaxUsers = mysqli_query($conexion, $maxUsers);
+            $resultMaxUsers = mysqli_fetch_array($runMaxUsers);
+            $addCustomer = "INSERT INTO cliente(id) VALUES({$resultMaxUsers['max']})";
+            if (mysqli_query($conexion, $addCustomer)) {
+                $message = 'Usuario creado';
+            }
+        } else {
+            $message = 'Error al crear usuario';
+        }
     }
 }
 
