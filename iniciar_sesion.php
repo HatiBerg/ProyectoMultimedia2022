@@ -1,10 +1,5 @@
 <?php
-//if (isset($_COOKIE["EMAIL"])) {
-//echo $_COOKIE["EMAIL"];
-//}
-
-/*session_start();*/
-
+session_start();
 require 'conexion.php';
 
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
@@ -54,7 +49,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
             <?php endif; ?>
 
             <form action="iniciar_sesion.php" method="POST">
-                <input name="email" type="text" placeholder="Correo electrónico">
+                <input name="email" type="email" placeholder="Correo electrónico">
                 <input name="password" type="password" placeholder="Contaseña">
 
                 <input type="submit" value="Ingresar">

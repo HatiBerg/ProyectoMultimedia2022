@@ -29,3 +29,6 @@
 21/12/2022 13:22:49 Se ha añadido un videojuego a la base de datos
 21/12/2022 13:24:03 Se ha añadido un videojuego a la base de datos
 21/12/2022 13:24:51 Se ha añadido un videojuego a la base de datos
+21/12/2022 18:47:34 Se ha añadido una noticia de la base de datos
+21/12/2022 19:15:13 Se ha añadido una noticia de la base de datos
+21/12/2022 19:17:26 Se ha editado una noticia de la base de datos

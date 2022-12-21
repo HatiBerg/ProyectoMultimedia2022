@@ -5,6 +5,10 @@ $consultaVJ = "SELECT * FROM videojuego WHERE mostrarSlider= 1";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 $imageVJ = mysqli_fetch_assoc($runVJ);
 
+$consultaN = "SELECT * FROM noticia WHERE mostrarSlider= 1";
+$runN = mysqli_query($conexion, $consultaN);
+$imageN = mysqli_fetch_assoc($runN);
+
 session_start();
 
 require 'conexion.php';
@@ -21,6 +25,7 @@ if (isset($_SESSION['user_id'])) {
         $user = $results;
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +73,7 @@ if (isset($_SESSION['user_id'])) {
                             <li class="nav-item">
                                 <a class="nav-link" href="registrarse.php">Registrarse</a>
                             </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
@@ -80,6 +86,7 @@ if (isset($_SESSION['user_id'])) {
                                     Salir
                                 </a>
                             <?php else : ?>
+                              
                             <?php endif; ?>
                             </div>
                     </div>
@@ -101,12 +108,12 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                     ';
-                        while ($result = mysqli_fetch_assoc($runVJ)) {
+                        while ($resultImg = mysqli_fetch_assoc($runVJ)) {
                             echo '
                          <div class="carousel-item" data-bs-interval="7000">
-                            <img id="slider-img" src="' . $result["url_foto"] . '" class="d-block w-100">
+                            <img id="slider-img" src="' . $resultImg["url_foto"] . '" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
-                                <h1 class="text-danger">"' . $result["nombreVJ"] . '"</h1>
+                                <h1 class="text-danger">"' . $resultImg["nombreVJ"] . '"</h1>
                             </div>
                         </div>
                     ';
@@ -156,12 +163,62 @@ if (isset($_SESSION['user_id'])) {
                 <div id="videos2" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" src="https://www.youtube.com/embed/CptaXqVY6-E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                 <div id="videos3" class="container-fluid col-lg-3 col-sm-11"><iframe width="445" height="245" src="https://www.youtube.com/embed/F3jePdO9_jc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
             </div>
+            <div id="row5" class="d-flex mb-2">
+                <div id="sliderN" class="container-fluid carousel slide col-8" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+
+                        echo ' <a href="https://as.com/meristation/2022/12/20/noticias/1671546763_735511.html"> 
+                         <div class="carousel-item active" data-bs-interval="7000">
+                            <img id="slider-imgN" src="' . $imageN["fotoN"] . '" class="d-block w-100">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2 class="shadow bg-dark">"' . $imageN["tituloN"] . '"</h2>
+                                <p class="shadow bg-dark">"' . $imageN["descripN"] . '"</p>
+                            </div>
+                        </div>
+                        </a>
+                    ';
+                        while ($resultImgN = mysqli_fetch_assoc($runN)) {
+                            echo ' <a href="https://www.nintenderos.com/2022/12/nintendo-recomienda-todos-estos-juegos-para-un-jugador-en-switch/"> 
+                            
+                         <div class="carousel-item" data-bs-interval="7000">
+                            <img id="slider-imgN" src="' . $resultImgN["fotoN"] . '" class="d-block w-100">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2 class="shadow bg-dark">"' . $resultImgN["tituloN"] . '"</h2>
+                                <p class="shadow bg-dark">"' . $resultImgN["descripN"] . '"</p>
+                            </div>
+                            
+                        </div>
+                        </a>
+                    ';
+                        }
+                        ?>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#sliderN" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#sliderN" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#sliderN" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#sliderN" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div id="footer" class="d-outline-flex text-center text-light">
             <div class="d-grid gap-2">
                 <button id="btn-back-to-top" class="btn btn-dark fs-5" type="button">Inicio de Página</button>
             </div>
+            
             <div class="container-fluid col-10 justify-content-center ">
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                     <button type="button" class="btn btn-link text-light">Acerca de nosotros</button>

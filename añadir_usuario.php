@@ -1,7 +1,7 @@
 <?php
 include 'conexion.php';
 
-$message = '';
+/*$message = '';
 
 if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm_password']) && !empty($_POST['tipoUser'])) {
     if ($_POST['password'] === $_POST['confirm_password']) {
@@ -35,7 +35,7 @@ if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['conf
     } else {
         $message = 'Las contraseñas no coinciden';
     }
-}
+}*/
 ?>
 
 <!DOCTYPE html>
