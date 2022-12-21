@@ -5,7 +5,7 @@ $consultaVJ = "SELECT * FROM videojuego WHERE mostrarSlider= 1";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 $imageVJ = mysqli_fetch_assoc($runVJ);
 
-$consultaN = "SELECT * FROM noticia WHERE mostrarSlider= 1";
+$consultaN = "SELECT * FROM noticia";
 $runN = mysqli_query($conexion, $consultaN);
 $imageN = mysqli_fetch_assoc($runN);
 
