@@ -7,7 +7,7 @@ $message = '';
 /*if (!empty($_POST['email']) && !empty($_POST['password'])) {
     $consultaEmail = "SELECT COUNT(id) AS existeEmail FROM usuario WHERE email = {$_POST['email']}";
     $runEmail = mysqli_query($conexion, $consultaEmail);
-    $existeEmail = mysqli_num_rows($runEmail);
+    $existeEmail = mysqli_fetch_array($runEmail);
 
     if ($existeEmail['existeEmail'] = 0) {
         $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
@@ -25,15 +25,22 @@ $message = '';
     }
 }
 */
-if (!empty($_POST['email']) && !empty($_POST['password'])){
-    $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
+if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['tipoUser'])) {
+    $sql = "INSERT INTO usuario (email, password, tipoUser) VALUES (:email, :password, :tipoUser)";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':email',$_POST['email']);
+    $stmt->bindParam(':email', $_POST['email']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $stmt->bindParam(':password',$password);
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':tipoUser', $_POST['tipoUser']);
 
     if ($stmt->execute()) {
-        $message = 'Usuario creado';
+        $maxUsers = "SELECT MAX(id) AS max FROM usuario";
+        $runMaxUsers = mysqli_query($conexion, $maxUsers);
+        $resultMaxUsers = mysqli_fetch_array($runMaxUsers);
+        $addCustomer = "INSERT INTO cliente(id) VALUES({$resultMaxUsers['max']})";
+        if (mysqli_query($conexion, $addCustomer)) {
+            $message = 'Usuario creado';
+        }
     } else {
         $message = 'Error al crear usuario';
     }
@@ -52,7 +59,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])){
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="lib/personal/style.css">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
-    
+
 </head>
 
 <body>
@@ -86,26 +93,27 @@ if (!empty($_POST['email']) && !empty($_POST['password'])){
                                 <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
                         </ul>
-                       
+
                     </div>
                 </div>
             </nav>
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-5">
-            
-        <?php if(!empty($message)): ?>
-            <p><?= $message ?></p>
-            <?php endif; ?>
-        <h1>Registarse</h1>
-    <span>o <a href="iniciar_sesion.php">Iniciar sesión</a></span>
 
-    <form action="registrarse.php" method="POST">
-      <input name="email" type="text" placeholder="Correo electrónico">
-      <input name="password" type="password" placeholder="Contraseña">
-      <input name="confirm_password" type="password" placeholder="Confirmar contraseña">
-      <input type="submit" value="Registrar datos">
-    </form>
+            <?php if (!empty($message)) : ?>
+                <p><?= $message ?></p>
+            <?php endif; ?>
+            <h1>Registarse</h1>
+            <span>o <a href="iniciar_sesion.php">Iniciar sesión</a></span>
+
+            <form action="registrarse.php" method="POST">
+                <input name="email" type="text" placeholder="Correo electrónico">
+                <input name="password" type="password" placeholder="Contraseña">
+                <input name="confirm_password" type="password" placeholder="Confirmar contraseña">
+                <input name='tipoUser' type='hidden' value="CLIENTE">
+                <input type="submit" value="Registrar datos">
+            </form>
         </div>
 
         <div id="footer" class="d-outline-flex text-center  text-light">
