@@ -86,10 +86,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])){
                                 <a class="nav-link" href="administracion.php">Administración</a>
                             </li>
                         </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit">Buscar</button>
-                        </form>
+                       
                     </div>
                 </div>
             </nav>
