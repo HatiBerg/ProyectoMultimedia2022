@@ -7,7 +7,10 @@ $runVJ = mysqli_query($conexion, $consultaVJ);
 if (isset($_REQUEST['delete'])) {
     $deleteVJ = "DELETE FROM videojuego WHERE idVJ = {$_REQUEST['idVJ']}";
     if (mysqli_query($conexion, $deleteVJ)) {
-        header('Location:eliminar_juego.php');
+        $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha eliminado un videojuego de la base de datos', now(), {$_REQUEST['idVJ']})";
+        if (mysqli_query($conexion, $log)) {
+            header('Location:eliminar_juego.php');
+        }
     } else {
         echo "Error: " . mysqli_error($conexion);
     }
@@ -205,19 +208,19 @@ if (isset($_REQUEST['delete'])) {
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="añadir_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir imagen</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="editar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar imagen</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
                                     </a>

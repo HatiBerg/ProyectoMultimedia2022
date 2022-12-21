@@ -3,11 +3,17 @@ include 'conexion.php';
 $consultaVJ = "SELECT * FROM videojuego";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
-$consultaJ = "SELECT * FROM usuario";
-$runJ = mysqli_query($conexion, $consultaJ);
+$consultaLog = "SELECT * FROM log";
+$runLog = mysqli_query($conexion, $consultaLog);
 
-$consultaB = "SELECT * FROM boleta";
-$runB = mysqli_query($conexion, $consultaB);
+$consultaU = "SELECT * FROM usuario";
+$runU = mysqli_query($conexion, $consultaU);
+
+$consultaN = "SELECT * FROM noticia";
+$runN = mysqli_query($conexion, $consultaN);
+
+$consultaS = "SELECT * FROM slider";
+$runS = mysqli_query($conexion, $consultaS);
 
 $consultaVisitasVJ = "SELECT SUM(visitas) AS cantVistas FROM videojuego";
 $runVisitasVJ = mysqli_query($conexion, $consultaVisitasVJ);
@@ -278,13 +284,13 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <?php
-                                    if ($cantBRegis = mysqli_num_rows($runB)) {
-                                        echo "<h3>" . $cantBRegis . "</h3>";
+                                    if ($cantNRegis = mysqli_num_rows($runN)) {
+                                        echo "<h3>" . $cantNRegis . "</h3>";
                                     } else {
                                         echo "<h3> 0 </h3>";
                                     }
                                     ?>
-                                    <p>Ventas Totales</p>
+                                    <p>Noticias Totales</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
@@ -297,8 +303,8 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <?php
-                                    if ($cantJRegis = mysqli_num_rows($runJ)) {
-                                        echo "<h3>" . $cantJRegis . "</h3>";
+                                    if ($cantURegis = mysqli_num_rows($runU)) {
+                                        echo "<h3>" . $cantURegis . "</h3>";
                                     } else {
                                         echo "<h3> 0 </h3>";
                                     }
@@ -333,6 +339,48 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Registro de Cambios</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_log" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Descripcion</th>
+                                                <th>Fecha de Modificación</th>
+                                                <th>ID del Cambio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+
+                                            if ($num = mysqli_num_rows($runLog) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runLog)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idLog'] . "</td>  
+                                                            <td>" . $result['descripLog'] . "</td>  
+                                                            <td>" . $result['fechaLog'] . "</td>  
+                                                            <td>" . $result['idCambio'] . "</td>  
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -383,9 +431,133 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                         </div>
                         <!-- /.col -->
                     </div>
-                    <!-- /.row (main row) -->
-                </div>
-                <!-- /.container-fluid -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Usuarios Registrados en la Base de Datos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_usuario" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Correo Electrónico</th>
+                                                <th>Alias</th>
+                                                <th>Fecha de Nacimiento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+
+                                            if ($num = mysqli_num_rows($runU) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runU)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['emailU'] . "</td>  
+                                                            <td>" . $result['aliasU'] . "</td>  
+                                                            <td>" . $result['fechaNacU'] . "</td>  
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Noticias Registradas en la Base de Datos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_noticia" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Titulo</th>
+                                                <th>Descripcion</th>
+                                                <th>Autor</th>
+                                                <th>Fecha de creación</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+
+                                            if ($num = mysqli_num_rows($runN) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runN)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idN'] . "</td>
+                                                            <td>" . $result['tituloN'] . "</td>
+                                                            <td>" . $result['descripN'] . "</td>
+                                                            <td>" . $result['autorN'] . "</td>
+                                                            <td>" . $result['fechaN'] . "</td>
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Imágenes Registradas en la Base de Datos para el Slider</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="tabla_slider" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre VideoJuego</th>
+                                                <th>URL del VideoJuego</th>
+                                                <th>URL de la Imagen</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            if ($num = mysqli_num_rows($runS) > 0) {
+                                                while ($result = mysqli_fetch_assoc($runS)) {
+                                                    echo "  
+                                                        <tr class='data'>  
+                                                            <td>" . $result['idS'] . "</td>
+                                                            <td>" . $result['tituloS'] . "</td>
+                                                            <td>" . $result['urlS'] . "</td>
+                                                            <td>" . $result['fotoS'] . "</td>
+                                                        </tr>  
+                                                    ";
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                        <!-- /.row (main row) -->
+                    </div>
+                    <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
@@ -463,6 +635,58 @@ $sumVisitasVJ = $rowVisitasVJ['cantVistas'];
                 "responsive": true,
                 "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#tabla_juegos_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function() {
+            $('#tabla_usuario').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabla_usuario_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function() {
+            $('#tabla_noticia').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabla_noticia_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function() {
+            $('#tabla_log').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#tabla_log_wrapper .col-md-6:eq(0)');
+        });
+
+        $(function() {
+            $('#tabla_slider').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "buttons": ["pdf", "print"]
+            }).buttons().container().appendTo('#tabla_slider_wrapper .col-md-6:eq(0)');
         });
     </script>
 </body>

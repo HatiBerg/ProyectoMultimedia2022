@@ -189,19 +189,19 @@ include 'conexion.php';
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="añadir_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-plus"></i>
                                         <p>Añadir imagen</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="editar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-edit"></i>
                                         <p>Editar imagen</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="eliminar_imagen_slider.php" class="nav-link">
                                         <i class="nav-icon fas fa-trash"></i>
                                         <p>Eliminar imagen</p>
                                     </a>
@@ -337,7 +337,7 @@ include 'conexion.php';
                                                        VALUES ('$nombreVJ', '$descripVJ', '$fechaCrea','$editorVJ', '$desarrolladorVJ', 0, $precio, '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
-                                                $Log = "INSERT INTO log(descripLog, fechaLog) VALUES ('Se ha añadido un videojuego a la base de datos', now())";
+                                                $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido un videojuego a la base de datos', now(), {$rowCantMaxVJ['cantMaxVJ']})";
                                                 if (mysqli_query($conexion, $Log)) {
                                                     echo "El videojuego se a subido con exito";
                                                     echo "<br>";
