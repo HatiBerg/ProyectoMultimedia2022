@@ -1,5 +1,14 @@
 <?php
+<<<<<<< Updated upstream
 session_start();
+=======
+//if (isset($_COOKIE["EMAIL"])) {
+//echo $_COOKIE["EMAIL"];
+//}
+
+session_start();
+
+>>>>>>> Stashed changes
 require 'conexion.php';
 
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
@@ -39,8 +48,6 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-2">
-
-
             <h1>Iniciar sesión</h1>
             <span>o <a href="registrarse.php">Registrarse</a></span>
 
@@ -51,7 +58,6 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
             <form action="iniciar_sesion.php" method="POST">
                 <input name="email" type="email" placeholder="Correo electrónico">
                 <input name="password" type="password" placeholder="Contaseña">
-
                 <input type="submit" value="Ingresar">
             </form>
         </div>
