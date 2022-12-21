@@ -1,7 +1,44 @@
 <?php
-if (isset($_COOKIE["EMAIL"])) {
-    echo $_COOKIE["EMAIL"];
+require 'conexion.php';
+
+$message = '';
+
+
+/*if (!empty($_POST['email']) && !empty($_POST['password'])) {
+    $consultaEmail = "SELECT COUNT(id) AS existeEmail FROM usuario WHERE email = {$_POST['email']}";
+    $runEmail = mysqli_query($conexion, $consultaEmail);
+    $existeEmail = mysqli_num_rows($runEmail);
+
+    if ($existeEmail['existeEmail'] = 0) {
+        $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $_POST['email']);
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $stmt->bindParam(':password', $password);
+        if ($stmt->execute()) {
+            $message = 'Usuario creado';
+        } else {
+            $message = 'Error al crear usuario';
+        }
+    } else {
+        $message = 'El usuario ya existe';
+    }
 }
+*/
+if (!empty($_POST['email']) && !empty($_POST['password'])){
+    $sql = "INSERT INTO usuario (email, password) VALUES (:email, :password)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':email',$_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $stmt->bindParam(':password',$password);
+
+    if ($stmt->execute()) {
+        $message = 'Usuario creado';
+    } else {
+        $message = 'Error al crear usuario';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +96,14 @@ if (isset($_COOKIE["EMAIL"])) {
         </div>
 
         <div id="main" class="d-outline-flex justify-content-center align-items-center text-center my-5">
+            
+        <?php if(!empty($message)): ?>
+            <p><?= $message ?></p>
+            <?php endif; ?>
         <h1>Registarse</h1>
     <span>o <a href="iniciar_sesion.php">Iniciar sesión</a></span>
 
-    <form action="signup.php" method="POST">
+    <form action="registrarse.php" method="POST">
       <input name="email" type="text" placeholder="Correo electrónico">
       <input name="password" type="password" placeholder="Contraseña">
       <input name="confirm_password" type="password" placeholder="Confirmar contraseña">
