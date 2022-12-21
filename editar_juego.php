@@ -59,13 +59,9 @@ if (isset($_REQUEST['subirCambios'])) {
         }
         if ($$estadoSubida = 1) {
             if (mysqli_query($conexion, $actualizar)) {
-                $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha modificado un videojuego de la base de datos', now(), {$_REQUEST['idVJ']})";
-                if (mysqli_query($conexion, $Log)) {
-                    header('Location:editar_juego.php');
-                }
-            } else {
-                echo "Error: El juego no se pudo actualizar";
-                echo "<br>";
+                $logFile = fopen("log.txt", 'a');
+                fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha editado un videojuego de la base de datos");
+                header('Location:editar_juego.php');
             }
         } else {
             echo "Error: El juego no se pudo actualizar";
@@ -131,7 +127,7 @@ if (isset($_REQUEST['subirCambios'])) {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index.html" class="brand-link">
+            <a href="administracion.php" class="brand-link">
                 <span class="brand-text font-weight-light">GameCenter Admin Panel</span>
             </a>
 

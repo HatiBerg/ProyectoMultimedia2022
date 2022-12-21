@@ -54,7 +54,7 @@ include 'conexion.php';
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index.html" class="brand-link">
+            <a href="administracion.php" class="brand-link">
                 <span class="brand-text font-weight-light">GameCenter Admin Panel</span>
             </a>
 
@@ -337,11 +337,10 @@ include 'conexion.php';
                                                        VALUES ('$nombreVJ', '$descripVJ', '$fechaCrea','$editorVJ', '$desarrolladorVJ', $precio, '$target_file')";
 
                                             if (mysqli_query($conexion, $añadir)) {
-                                                $Log = "INSERT INTO log(descripLog, fechaLog, idCambio) VALUES ('Se ha añadido un videojuego a la base de datos', now(), {$rowCantMaxVJ['cantMaxVJ']})";
-                                                if (mysqli_query($conexion, $Log)) {
-                                                    echo "El videojuego se a subido con exito";
-                                                    echo "<br>";
-                                                }
+                                                $logFile = fopen("log.txt", 'a');
+                                                fwrite($logFile, "\n" . date("d/m/Y H:i:s") . " Se ha añadido un videojuego a la base de datos");
+                                                echo "El videojuego se a subido con exito";
+                                                echo "<br>";
                                             } else {
                                                 echo "Error al subir el videojuego, por favor intente de nuevo";
                                                 echo "<br>";

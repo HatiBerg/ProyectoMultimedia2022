@@ -3,9 +3,6 @@ include 'conexion.php';
 $consultaVJ = "SELECT * FROM videojuego";
 $runVJ = mysqli_query($conexion, $consultaVJ);
 
-$consultaLog = "SELECT * FROM log";
-$runLog = mysqli_query($conexion, $consultaLog);
-
 $consultaU = "SELECT * FROM usuario";
 $runU = mysqli_query($conexion, $consultaU);
 
@@ -73,7 +70,7 @@ $runS = mysqli_query($conexion, $consultaS);
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index.html" class="brand-link">
+            <a href="administracion.php" class="brand-link">
                 <span class="brand-text font-weight-light">GameCenter Admin Panel</span>
             </a>
 
@@ -318,8 +315,8 @@ $runS = mysqli_query($conexion, $consultaS);
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <?php
-                                    if ($cantLogRegis = mysqli_num_rows($runLog)) {
-                                        echo "<h3>" . $cantLogRegis . "</h3>";
+                                    if ($cantSRegis = mysqli_num_rows($runS)) {
+                                        echo "<h3>" . $cantSRegis . "</h3>";
                                     } else {
                                         echo "<h3> 0 </h3>";
                                     }
@@ -335,48 +332,6 @@ $runS = mysqli_query($conexion, $consultaS);
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Registro de Cambios</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="tabla_log" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Descripcion</th>
-                                                <th>Fecha de Modificación</th>
-                                                <th>ID del Cambio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-
-                                            if ($num = mysqli_num_rows($runLog) > 0) {
-                                                while ($result = mysqli_fetch_assoc($runLog)) {
-                                                    echo "  
-                                                        <tr class='data'>  
-                                                            <td>" . $result['idLog'] . "</td>  
-                                                            <td>" . $result['descripLog'] . "</td>  
-                                                            <td>" . $result['fechaLog'] . "</td>  
-                                                            <td>" . $result['idCambio'] . "</td>  
-                                                        </tr>  
-                                                    ";
-                                                }
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -522,7 +477,6 @@ $runS = mysqli_query($conexion, $consultaS);
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Nombre VideoJuego</th>
-                                                <th>URL del VideoJuego</th>
                                                 <th>URL de la Imagen</th>
                                             </tr>
                                         </thead>
@@ -532,9 +486,8 @@ $runS = mysqli_query($conexion, $consultaS);
                                                 while ($result = mysqli_fetch_assoc($runS)) {
                                                     echo "  
                                                         <tr class='data'>  
-                                                            <td>" . $result['idS'] . "</td>
+                                                            <td>" . $result['idVJ'] . "</td>
                                                             <td>" . $result['tituloS'] . "</td>
-                                                            <td>" . $result['urlS'] . "</td>
                                                             <td>" . $result['fotoS'] . "</td>
                                                         </tr>  
                                                     ";
